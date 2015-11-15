@@ -23,9 +23,11 @@ import android.widget.Toast;
 
 public class ActivityHorarios extends AppCompatActivity {
 
-    Button btn;
-    int year_x, month_x,day_x;
-    static final int DIALOG_ID = 0;
+    private DatePickerDialog.OnDateSetListener dpickerListner = this.createDataListener();
+    private Button btn;
+    private int year_x, month_x,day_x;
+
+    public static final int DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,8 @@ public class ActivityHorarios extends AppCompatActivity {
 
         final Calendar cal = Calendar.getInstance();
 
-        year_x = cal.get(Calendar.YEAR);
-        month_x = cal.get(Calendar.MONTH);
+        this.year_x = cal.get(Calendar.YEAR);
+        this.month_x = cal.get(Calendar.MONTH);
         day_x = cal.get(Calendar.DAY_OF_MONTH);
 
         mostraDialogOnButtonClick();
@@ -63,15 +65,16 @@ public class ActivityHorarios extends AppCompatActivity {
         }
     }
 
-    private DatePickerDialog.OnDateSetListener dpickerListner
-            = new OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            year_x = year;
-            month_x = monthOfYear + 1;
-            day_x = dayOfMonth;
-            Toast.makeText(ActivityHorarios.this,day_x + "/" + month_x + "/" + day_x, Toast.LENGTH_LONG).show();
-        }
-    };
+    private DatePickerDialog.OnDateSetListener createDataListener() {
+        return  new OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                year_x = year;
+                month_x = monthOfYear + 1;
+                day_x = dayOfMonth;
+                Toast.makeText(ActivityHorarios.this,day_x + "/" + month_x + "/" + year_x, Toast.LENGTH_LONG).show();
+            }
+        };
+    }
 }
 

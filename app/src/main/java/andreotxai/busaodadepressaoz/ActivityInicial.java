@@ -14,8 +14,8 @@ import android.widget.Spinner;
 
 public class ActivityInicial extends AppCompatActivity {
 
-    private Spinner spinner;
-    private Spinner spinner2;
+    private Spinner spinnerEmpresa;
+    private Spinner spinnerLinha;
     private AppCompatButton botaoProximo;
 
     final private String[] arraySpinner = new String[] {
@@ -29,44 +29,37 @@ public class ActivityInicial extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicial);
+
+        // TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // END
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        // SPINNERS
+        this.spinnerEmpresa = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
-        spinner.setAdapter(adapter);
-        //end
+        spinnerEmpresa.setAdapter(adapter);
 
-        Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
+        this.spinnerLinha = (Spinner) findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arraySpinner2);
-        spinner2.setAdapter(adapter2);
-        //end
+        spinnerLinha.setAdapter(adapter2);
+        spinnerLinha.setOnItemSelectedListener(this.createSpinnerLinhaListener());
+        // END
 
         //BOTÃO PROXIMO
         this.botaoProximo = (AppCompatButton) findViewById(R.id.botaoProximo);
-
-        //Isso faz o botao só ativar quando algo é selecionado no spinner 2
-        spinner2.setOnItemSelectedListener(this.createSpinnerLinhaListener());
-        //END
-
+        //Isso faz o botao só ativar quando algo é selecionado no spinnerEmpresa 2
         this.botaoProximo.setOnClickListener(this.createBotaoProximoClickListener());
         //END
     }
 
     @Override
     protected void onStart() {
-
-
         super.onStart();
-
-        spinner2 = (Spinner) findViewById(R.id.spinner2);
-        spinner = (Spinner) findViewById(R.id.spinner);
-
-        //Isso faz o spinner 2 só ativar quando algo é selecionado no spinner 1
-        spinner.setOnItemSelectedListener(this.createSpinnerEmpresaListener());
-        //END
+        //Isso faz o spinnerEmpresa 2 só ativar quando algo é selecionado no spinnerEmpresa 1
+        spinnerEmpresa.setOnItemSelectedListener(this.createSpinnerEmpresaListener());
     }
 
     @Override
@@ -90,7 +83,6 @@ public class ActivityInicial extends AppCompatActivity {
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -102,7 +94,7 @@ public class ActivityInicial extends AppCompatActivity {
                 if (position == 0) {
                     Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
                     spinner2.setEnabled(false);
-                } else spinner2.setEnabled(true);
+                } else spinnerLinha.setEnabled(true);
 
             }
 
@@ -123,7 +115,6 @@ public class ActivityInicial extends AppCompatActivity {
                 } else {
                     botaoProximo.setEnabled(true);
                 }
-
             }
 
             @Override
@@ -135,12 +126,13 @@ public class ActivityInicial extends AppCompatActivity {
 
     private View.OnClickListener createBotaoProximoClickListener() {
         return new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(ActivityInicial.this, ActivityHorarios.class);
                 startActivity(it);
-
             }
+
         };
     }
 
