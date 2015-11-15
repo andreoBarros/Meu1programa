@@ -2,8 +2,6 @@ package andreotxai.busaodadepressaoz;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +16,14 @@ public class ActivityInicial extends AppCompatActivity {
 
     private Spinner spinner;
     private Spinner spinner2;
-    private String[] arraySpinner;
-    private String[] arraySpinner2;
+    private AppCompatButton botaoProximo;
+
+    final private String[] arraySpinner = new String[] {
+            "<none>","Carris", "2", "3", "4", "5"
+    };
+    final private String[] arraySpinner2 = new String[] {
+            "<none>","353", "343", "T9", "D43", "T10"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,56 +31,28 @@ public class ActivityInicial extends AppCompatActivity {
         setContentView(R.layout.activity_inicial);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//valores do spinner 1
-        this.arraySpinner = new String[] {
-                "<none>","Carris", "2", "3", "4", "5"
-        };
+
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
         spinner.setAdapter(adapter);
+        //end
 
-//end
-//valores do spinner 2
-        this.arraySpinner2 = new String[] {
-                "<none>","353", "343", "T9", "D43", "T10"
-        };
         Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arraySpinner2);
         spinner2.setAdapter(adapter2);
+        //end
 
-//end
+        //BOTÃO PROXIMO
+        this.botaoProximo = (AppCompatButton) findViewById(R.id.botaoProximo);
 
-//BOTÃO PROXIMO
-        final AppCompatButton botaoProximo = (AppCompatButton) findViewById(R.id.botaoProximo);
+        //Isso faz o botao só ativar quando algo é selecionado no spinner 2
+        spinner2.setOnItemSelectedListener(this.createSpinnerLinhaListener());
+        //END
 
-//Isso faz o botao só ativar quando algo é selecionado no spinner 2
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position == 0) {
-                    botaoProximo.setEnabled(false);
-                } else botaoProximo.setEnabled(true);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-
-        });
-//END
-        botaoProximo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(ActivityInicial.this, ActivityZ.class);
-                //     it.setClass(null, ActivityZ.class);
-                startActivity(it);
-
-            }
-        });
-//END
+        this.botaoProximo.setOnClickListener(this.createBotaoProximoClickListener());
+        //END
     }
 
     @Override
@@ -88,24 +64,11 @@ public class ActivityInicial extends AppCompatActivity {
         spinner2 = (Spinner) findViewById(R.id.spinner2);
         spinner = (Spinner) findViewById(R.id.spinner);
 
-//Isso faz o spinner 2 só ativar quando algo é selecionado no spinner 1
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position == 0) {
-                    Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-                    spinner2.setEnabled(false);
-                } else spinner2.setEnabled(true);
+        //Isso faz o spinner 2 só ativar quando algo é selecionado no spinner 1
+        spinner.setOnItemSelectedListener(this.createSpinnerEmpresaListener());
+        //END
+    }
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-
-        });
-//END
-    };
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -119,8 +82,8 @@ public class ActivityInicial extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Intent it = new Intent(ActivityInicial.this, ActivityZ.class);
-        //     it.setClass(null, ActivityZ.class);
+        Intent it = new Intent(ActivityInicial.this, ActivityHorarios.class);
+        //     it.setClass(null, ActivityHorarios.class);
         startActivity(it);
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -130,4 +93,55 @@ public class ActivityInicial extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private AdapterView.OnItemSelectedListener createSpinnerEmpresaListener() {
+        return new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (position == 0) {
+                    Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
+                    spinner2.setEnabled(false);
+                } else spinner2.setEnabled(true);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        };
+    }
+
+    private AdapterView.OnItemSelectedListener createSpinnerLinhaListener() {
+        return new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (position == 0) {
+                    botaoProximo.setEnabled(false);
+                } else {
+                    botaoProximo.setEnabled(true);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        };
+    }
+
+    private View.OnClickListener createBotaoProximoClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(ActivityInicial.this, ActivityHorarios.class);
+                startActivity(it);
+
+            }
+        };
+    }
+
 }

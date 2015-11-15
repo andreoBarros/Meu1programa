@@ -10,4 +10,5 @@ public class Avalicoes {
     String comentario;
     int idRelLinhaHorarios;
     int idUsuario;
+
 }

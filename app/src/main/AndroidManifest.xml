@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityZ"
+            android:name=".ActivityHorarios"
             android:label="@string/title_activity_activity_z"
             android:parentActivityName=".ActivityInicial"
             android:theme="@style/AppTheme.NoActionBar" >
