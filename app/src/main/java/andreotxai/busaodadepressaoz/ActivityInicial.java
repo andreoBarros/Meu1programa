@@ -30,6 +30,7 @@ public class ActivityInicial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicial);
 
+
         // TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -94,7 +95,9 @@ public class ActivityInicial extends AppCompatActivity {
                 if (position == 0) {
                     Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
                     spinner2.setEnabled(false);
-                } else spinnerLinha.setEnabled(true);
+                } else {
+                    spinnerLinha.setEnabled(true);
+                }
 
             }
 

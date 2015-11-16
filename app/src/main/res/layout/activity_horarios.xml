@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ActivityInicial">
+    tools:context=".ActivityHorarios">
 
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include android:id="@+id/layoutInclude"
-        layout="@layout/content_activity_inicial" />
+    <include android:id="@+id/data"
+        layout="@layout/content_activity_horarios"/>
 
 </android.support.design.widget.CoordinatorLayout>

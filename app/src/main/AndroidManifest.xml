@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".ActivityHorarios"
-            android:label="@string/title_activity_activity_z"
+            android:label="@string/app_name"
             android:parentActivityName=".ActivityInicial"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -29,12 +29,21 @@
         </activity>
         <activity
             android:name=".ActivityAvaliacao"
-            android:label="@string/title_activity_activity_avaliacao"
+            android:label="@string/app_name"
             android:parentActivityName=".ActivityHorarios"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="andreotxai.busaodadepressaoz.ActivityHorarios" />
+        </activity>
+        <activity
+            android:name=".ActivityTeste"
+            android:label="@string/app_name"
+            android:parentActivityName=".ActivityInicial"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="andreotxai.busaodadepressaoz.ActivityInicial" />
         </activity>
     </application>
 
