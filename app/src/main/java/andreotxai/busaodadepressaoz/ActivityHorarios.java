@@ -8,11 +8,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class ActivityHorarios extends AppCompatActivity {
@@ -27,10 +25,7 @@ public class ActivityHorarios extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_horarios);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_activity_horarios);
 
         this.btnProximo = (Button) findViewById(R.id.botaoAvancar);
         this.btnProximo.setOnClickListener(this.createBotaoProximoClickListener());
@@ -82,8 +77,8 @@ public class ActivityHorarios extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(ActivityHorarios.this, ActivityAvaliacao.class);
-                startActivity(it);
+                 Intent it = new Intent(ActivityHorarios.this, ActivityAvaliacao.class);
+                 startActivity(it);
             }
 
         };

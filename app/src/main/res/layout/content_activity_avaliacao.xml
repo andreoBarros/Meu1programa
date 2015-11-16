@@ -10,6 +10,16 @@
     tools:showIn="@layout/activity_activity_avaliacao"
     tools:context="andreotxai.busaodadepressaoz.ActivityAvaliacao">
 
+    <LinearLayout
+        android:name="andreotxai.busaodadepressaoz"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,4 +53,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    </LinearLayout>
 </RelativeLayout>
