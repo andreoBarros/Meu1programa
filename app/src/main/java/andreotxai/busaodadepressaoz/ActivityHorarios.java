@@ -24,6 +24,8 @@ public class ActivityHorarios extends AppCompatActivity {
     private TextView txtViewData;
     private DialogFragment dateFragment;
 
+    final private static String STRING_MENSAGEM = "Data inválida!";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,12 @@ public class ActivityHorarios extends AppCompatActivity {
 
     private String formatDataText(int day, int month, int year) {
         return day + "/" + (month + 1) + "/" + year;
+    }
+
+    private boolean checkValidData(int day, int month, int year) {
+        return ((year <= cal.get(Calendar.YEAR))
+                && (month <= cal.get(Calendar.MONTH))
+                && (day <= cal.get(Calendar.DAY_OF_MONTH)));
     }
 
     private void updateTextViewContent(int day, int month, int year) {
@@ -92,12 +100,15 @@ public class ActivityHorarios extends AppCompatActivity {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, month);
-            cal.set(Calendar.DAY_OF_MONTH, day);
+            if (checkValidData(day, month, year)) {
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month);
+                cal.set(Calendar.DAY_OF_MONTH, day);
 
-            updateTextViewContent(day, month, year);
-            Toast.makeText(ActivityHorarios.this,formatDataText(day,month,year), Toast.LENGTH_LONG).show();
+                updateTextViewContent(day, month, year);
+            } else {
+                Toast.makeText(ActivityHorarios.this,STRING_MENSAGEM, Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
