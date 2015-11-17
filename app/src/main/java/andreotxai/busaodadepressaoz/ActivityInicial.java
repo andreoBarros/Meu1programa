@@ -39,14 +39,14 @@ public class ActivityInicial extends AppCompatActivity {
         // SPINNERS
         this.spinnerEmpresa = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, arraySpinner);
-        spinnerEmpresa.setAdapter(adapter);
+                android.R.layout.simple_spinner_item, this.arraySpinner);
+        this.spinnerEmpresa.setAdapter(adapter);
 
         this.spinnerLinha = (Spinner) findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, arraySpinner2);
-        spinnerLinha.setAdapter(adapter2);
-        spinnerLinha.setOnItemSelectedListener(this.createSpinnerLinhaListener());
+                android.R.layout.simple_spinner_item, this.arraySpinner2);
+        this.spinnerLinha.setAdapter(adapter2);
+        this.spinnerLinha.setOnItemSelectedListener(this.createSpinnerLinhaListener());
         // END
 
         //BOTÃO PROXIMO
@@ -60,7 +60,7 @@ public class ActivityInicial extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //Isso faz o spinnerEmpresa 2 só ativar quando algo é selecionado no spinnerEmpresa 1
-        spinnerEmpresa.setOnItemSelectedListener(this.createSpinnerEmpresaListener());
+        this.spinnerEmpresa.setOnItemSelectedListener(this.createSpinnerEmpresaListener());
     }
 
     @Override
@@ -93,8 +93,7 @@ public class ActivityInicial extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if (position == 0) {
-                    Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-                    spinner2.setEnabled(false);
+                    spinnerLinha.setEnabled(false);
                 } else {
                     spinnerLinha.setEnabled(true);
                 }

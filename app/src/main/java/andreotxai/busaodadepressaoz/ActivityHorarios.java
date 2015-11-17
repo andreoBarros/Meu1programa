@@ -10,8 +10,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +25,12 @@ public class ActivityHorarios extends AppCompatActivity {
     private Button btnData;
     private Button btnProximo;
     private TextView txtViewData;
+    private Spinner spinnerHorarios;
     private DialogFragment dateFragment;
 
+    final private String[] arraySpinner = new String[] {
+            "<none>","08:00", "08:20", "08:40", "09:00", "09:20"
+    };
     final private static String STRING_MENSAGEM = "Data inválida!";
 
     @Override
@@ -36,12 +43,20 @@ public class ActivityHorarios extends AppCompatActivity {
 
         this.btnProximo = (Button) findViewById(R.id.botaoAvancar);
         this.btnProximo.setOnClickListener(this.createBotaoProximoClickListener());
+
         this.btnData = (Button) findViewById(R.id.botaoData);
         this.btnData.setOnClickListener(this.createBotaoDataClickListener());
+
         this.txtViewData = (TextView) findViewById(R.id.textViewData);
 
+        this.spinnerHorarios = (Spinner) findViewById(R.id.spinnerHorarios);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, this.arraySpinner);
+        this.spinnerHorarios.setAdapter(adapter);
+        this.spinnerHorarios.setOnItemSelectedListener(this.createSpinnerEmpresaListener());
+
         this.cal = Calendar.getInstance();
-        updateTextViewContent(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+        this.updateTextViewContent(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
     }
 
     public void showDatePickerDialog(View v) {
@@ -61,6 +76,26 @@ public class ActivityHorarios extends AppCompatActivity {
 
     private void updateTextViewContent(int day, int month, int year) {
         this.txtViewData.setText(this.formatDataText(day,month,year));
+    }
+
+    private AdapterView.OnItemSelectedListener createSpinnerEmpresaListener() {
+        return new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (position == 0) {
+                    btnProximo.setEnabled(false);
+                } else {
+                    btnProximo.setEnabled(true);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        };
     }
 
     private View.OnClickListener createBotaoDataClickListener () {
