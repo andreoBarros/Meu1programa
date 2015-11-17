@@ -3,8 +3,8 @@ package andreotxai.busaodadepressaoz;
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,16 +12,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ActivityHorarios extends AppCompatActivity {
 
-    private DatePickerDialog.OnDateSetListener dpickerListner = this.createDataListener();
+    Calendar cal;
+
     private Button btnData;
     private Button btnProximo;
-    private int year_x, month_x,day_x;
-
-    public static final int DIALOG_ID = 0;
+    private TextView txtViewData;
+    private DialogFragment dateFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,45 +34,32 @@ public class ActivityHorarios extends AppCompatActivity {
 
         this.btnProximo = (Button) findViewById(R.id.botaoAvancar);
         this.btnProximo.setOnClickListener(this.createBotaoProximoClickListener());
-
-        final Calendar cal = Calendar.getInstance();
-        this.year_x = cal.get(Calendar.YEAR);
-        this.month_x = cal.get(Calendar.MONTH);
-        this.day_x = cal.get(Calendar.DAY_OF_MONTH);
-
-        this.mostraDialogOnButtonClick();
-    }
-
-    public void mostraDialogOnButtonClick(){
         this.btnData = (Button) findViewById(R.id.botaoData);
+        this.btnData.setOnClickListener(this.createBotaoDataClickListener());
+        this.txtViewData = (TextView) findViewById(R.id.textViewData);
 
-        this.btnData.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDialog(DIALOG_ID);
-                    }
-                });
+        this.cal = Calendar.getInstance();
+        updateTextViewContent(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
     }
 
-    @Override
-    protected Dialog onCreateDialog(int id){
-        if (id == DIALOG_ID){
-            return new DatePickerDialog(this, dpickerListner, year_x, month_x, day_x);
-        }
-        else{
-            return null;
-        }
+    public void showDatePickerDialog(View v) {
+        dateFragment = new DatePickerFragment();
+        dateFragment.show(getFragmentManager(), "datePicker");
     }
 
-    private DatePickerDialog.OnDateSetListener createDataListener() {
-        return  new OnDateSetListener() {
+    private String formatDataText(int day, int month, int year) {
+        return day + "/" + (month + 1) + "/" + year;
+    }
+
+    private void updateTextViewContent(int day, int month, int year) {
+        this.txtViewData.setText(this.formatDataText(day,month,year));
+    }
+
+    private View.OnClickListener createBotaoDataClickListener () {
+        return new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                year_x = year;
-                month_x = monthOfYear + 1;
-                day_x = dayOfMonth;
-                Toast.makeText(ActivityHorarios.this,day_x + "/" + month_x + "/" + year_x, Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+                showDatePickerDialog(v);
             }
         };
     }
@@ -86,6 +74,31 @@ public class ActivityHorarios extends AppCompatActivity {
             }
 
         };
+    }
+
+    class DatePickerFragment extends DialogFragment implements
+            DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            cal.set(Calendar.YEAR, year);
+            cal.set(Calendar.MONTH, month);
+            cal.set(Calendar.DAY_OF_MONTH, day);
+
+            updateTextViewContent(day, month, year);
+            Toast.makeText(ActivityHorarios.this,formatDataText(day,month,year), Toast.LENGTH_LONG).show();
+        }
     }
 }
 
