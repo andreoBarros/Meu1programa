@@ -3,6 +3,7 @@ package andreotxai.busaodadepressaoz.DAO.file;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -15,6 +16,7 @@ public class DataBaseMainFactory {
 
     private ManageFile fileMainStream;
     private String dados;
+    private String dadosBanco;
 
     public DataBaseMainFactory(Context context) {
         try {
@@ -28,11 +30,23 @@ public class DataBaseMainFactory {
         return this.fileMainStream.WriteFile(this.dados);
     }
 
+    public String readData() throws IOException {
+        return this.fileMainStream.ReadFile();
+    }
+
     public String getDados() {
         return dados;
     }
 
     public void setDados(String dados) {
         this.dados = dados;
+    }
+
+    public String getDadosBanco() {
+        return dadosBanco;
+    }
+
+    public void setDadosBanco(String dadosBanco) {
+        this.dadosBanco = dadosBanco;
     }
 }

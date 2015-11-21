@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
 import andreotxai.busaodadepressaoz.model.Avalicoes;
@@ -15,6 +18,7 @@ import andreotxai.busaodadepressaoz.model.Avalicoes;
 public class ActivityAvaliacao extends AppCompatActivity {
 
     private AppCompatButton btnEnviar;
+    private Button btnTeste;
     private RatingBar nota;
     private Avalicoes avalicao;
     private EditText text;
@@ -29,10 +33,12 @@ public class ActivityAvaliacao extends AppCompatActivity {
         this.btnEnviar = (AppCompatButton) findViewById(R.id.btnEnviar);
         this.nota = (RatingBar) findViewById(R.id.nota);
         this.text = (EditText) findViewById(R.id.caixaTexto);
+        this.btnTeste = (Button) findViewById(R.id.buttonTeste);
 
         //botao enviar
         btnEnviar.setOnClickListener(this.createBotaoEnviarListener());
         //END
+        btnTeste.setOnClickListener(this.createBotaoTesteListener());
     }
 
     private View.OnClickListener createBotaoEnviarListener() {
@@ -40,6 +46,15 @@ public class ActivityAvaliacao extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendAvaliacao();
+            }
+        };
+    }
+
+    private View.OnClickListener createBotaoTesteListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readAvaliacao();
             }
         };
     }
@@ -59,6 +74,17 @@ public class ActivityAvaliacao extends AppCompatActivity {
             Toast.makeText(ActivityAvaliacao.this, "Comentário adicionado com aucesso!", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(ActivityAvaliacao.this, "Ocorreu algum problema!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void readAvaliacao() {
+        AvaliacoesDAO dao = new AvaliacoesDAO();
+        try {
+            String teste = dao.lerAvaliacaoDataBase(this);
+            Toast.makeText(ActivityAvaliacao.this, teste, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(ActivityAvaliacao.this, "Problema de leitura!", Toast.LENGTH_LONG).show();
         }
     }
 }

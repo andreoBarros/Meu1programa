@@ -15,6 +15,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
+import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
+
 public class ActivityInicial extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinnerEmpresa;
@@ -137,6 +141,7 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
 
         };
     }
+
     // aqui é onde a mágica dos spinners acontece
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

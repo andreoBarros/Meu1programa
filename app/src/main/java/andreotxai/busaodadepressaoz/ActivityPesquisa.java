@@ -16,7 +16,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Calendar;
+
+import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
 
 public class ActivityPesquisa extends AppCompatActivity {
 
@@ -111,5 +114,16 @@ public class ActivityPesquisa extends AppCompatActivity {
         }
     }
     //END
+
+    private void readAvaliacao() {
+        AvaliacoesDAO dao = new AvaliacoesDAO();
+        try {
+            String teste = dao.lerAvaliacaoDataBase(this);
+            Toast.makeText(this, teste, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Problema de leitura!", Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

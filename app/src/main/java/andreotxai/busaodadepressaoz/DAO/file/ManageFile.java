@@ -16,7 +16,7 @@ import java.io.IOException;
 public class ManageFile {
     private static final String TAG = "ManageFile";
 
-    private String fileName = "main.txt";
+    private String fileName;
     private Context context;
 
     public ManageFile(Context context, String fileName) throws IOException {
@@ -38,7 +38,7 @@ public class ManageFile {
     public boolean WriteFile(String text){
         try {
             // Abre o arquivo para escrita ou cria se não existir
-            FileOutputStream out = context.openFileOutput("romar.txt",
+            FileOutputStream out = context.openFileOutput(this.fileName,
                     Context.MODE_APPEND);
             out.write(text.getBytes());
             out.write("\n".getBytes());
@@ -58,11 +58,11 @@ public class ManageFile {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public String ReadFile() throws FileNotFoundException, IOException {
+    public String ReadFile() throws IOException {
         File file = context.getFilesDir();
-        File textfile = new File(file + "/romar.txt");
+        File textfile = new File(file + "/" + this.fileName);
 
-        FileInputStream input = context.openFileInput("romar.txt");
+        FileInputStream input = context.openFileInput(this.fileName);
         byte[] buffer = new byte[(int)textfile.length()];
 
         input.read(buffer);

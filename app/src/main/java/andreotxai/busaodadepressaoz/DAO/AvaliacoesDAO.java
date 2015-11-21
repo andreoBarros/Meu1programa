@@ -2,6 +2,8 @@ package andreotxai.busaodadepressaoz.DAO;
 
 import android.content.Context;
 
+import java.io.IOException;
+
 import andreotxai.busaodadepressaoz.DAO.file.DataBaseMainFactory;
 import andreotxai.busaodadepressaoz.DAO.file.ManageFile;
 import andreotxai.busaodadepressaoz.model.Avalicoes;
@@ -14,6 +16,14 @@ public class AvaliacoesDAO {
     private Avalicoes avalicoes;
     private String stringDatabase;
 
+    public AvaliacoesDAO() {}
+
+    public AvaliacoesDAO(Avalicoes avalicoes, String stringDatabase) {
+        this.avalicoes = avalicoes;
+        this.stringDatabase = stringDatabase;
+        this.montaStringDataBase();
+    }
+
     public AvaliacoesDAO(Avalicoes avalicoes) {
         this.avalicoes = avalicoes;
         this.montaStringDataBase();
@@ -21,13 +31,18 @@ public class AvaliacoesDAO {
 
     private void montaStringDataBase() {
         this.stringDatabase = String.valueOf(this.avalicoes.getIdRelLinhaHorarios())
-                        + " " + String.valueOf(this.avalicoes.getNota())
-                        + " <[" + this.avalicoes.getComentario() + "]>";
+                + " " + String.valueOf(this.avalicoes.getNota())
+                + " <[" + this.avalicoes.getComentario() + "]>";
     }
 
     public boolean insereAvaliacaoDataBase(Context context) {
         DataBaseMainFactory dbConnection = new DataBaseMainFactory(context);
         dbConnection.setDados(this.stringDatabase);
         return dbConnection.insertData();
+    }
+
+    public String lerAvaliacaoDataBase(Context context) throws IOException {
+        DataBaseMainFactory dbConnection = new DataBaseMainFactory(context);
+        return dbConnection.readData();
     }
 }

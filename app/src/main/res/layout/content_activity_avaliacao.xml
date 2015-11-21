@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/estrelinha"
-        android:layout_marginTop="203dp"
+        android:layout_marginTop="53dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -51,7 +51,14 @@
         android:id="@+id/btnEnviar"
         android:layout_below="@+id/caixaTexto"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="right" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teste"
+            android:id="@+id/buttonTeste" />
 
     </LinearLayout>
 </RelativeLayout>
