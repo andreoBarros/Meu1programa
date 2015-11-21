@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
+import andreotxai.busaodadepressaoz.DAO.EmpresasDAO;
 
 public class ActivityInicial extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -52,9 +53,6 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
             , "360 - I P E"
     };
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,9 +81,9 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
         //Isso faz o botao só ativar quando algo é selecionado no spinnerEmpresa 2
         this.botaoProximo.setOnClickListener(this.createBotaoProximoClickListener());
         //END
+
+        carregarEmpresas();
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -183,6 +181,18 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
 
     }
     //end
+
+    private void carregarEmpresas() {
+        EmpresasDAO dao = new EmpresasDAO();
+        try {
+            String teste = dao.lerDataBase(this);
+            Toast.makeText(this, teste, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Problema de leitura!", Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

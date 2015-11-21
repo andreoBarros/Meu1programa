@@ -4,8 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -118,7 +116,7 @@ public class ActivityPesquisa extends AppCompatActivity {
     private void readAvaliacao() {
         AvaliacoesDAO dao = new AvaliacoesDAO();
         try {
-            String teste = dao.lerAvaliacaoDataBase(this);
+            String teste = dao.lerDataBase(this);
             Toast.makeText(this, teste, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();

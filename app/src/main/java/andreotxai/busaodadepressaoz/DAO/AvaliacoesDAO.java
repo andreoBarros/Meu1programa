@@ -5,24 +5,17 @@ import android.content.Context;
 import java.io.IOException;
 
 import andreotxai.busaodadepressaoz.DAO.file.DataBaseMainFactory;
-import andreotxai.busaodadepressaoz.DAO.file.ManageFile;
 import andreotxai.busaodadepressaoz.model.Avalicoes;
 
 /**
  * Classe para inserção e pesquisa no banco de dados por avaliações.
  * Created by Batman on 21/11/2015.
  */
-public class AvaliacoesDAO {
+public class AvaliacoesDAO implements IModelDAO {
     private Avalicoes avalicoes;
     private String stringDatabase;
 
     public AvaliacoesDAO() {}
-
-    public AvaliacoesDAO(Avalicoes avalicoes, String stringDatabase) {
-        this.avalicoes = avalicoes;
-        this.stringDatabase = stringDatabase;
-        this.montaStringDataBase();
-    }
 
     public AvaliacoesDAO(Avalicoes avalicoes) {
         this.avalicoes = avalicoes;
@@ -35,13 +28,13 @@ public class AvaliacoesDAO {
                 + " <[" + this.avalicoes.getComentario() + "]>";
     }
 
-    public boolean insereAvaliacaoDataBase(Context context) {
+    public boolean insereDataBase(Context context) {
         DataBaseMainFactory dbConnection = new DataBaseMainFactory(context);
         dbConnection.setDados(this.stringDatabase);
         return dbConnection.insertData();
     }
 
-    public String lerAvaliacaoDataBase(Context context) throws IOException {
+    public String lerDataBase(Context context) throws IOException {
         DataBaseMainFactory dbConnection = new DataBaseMainFactory(context);
         return dbConnection.readData();
     }

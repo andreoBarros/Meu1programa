@@ -62,7 +62,7 @@ public class ActivityAvaliacao extends AppCompatActivity {
     private void createAvaliacao() {
         this.avalicao = new Avalicoes();
         this.avalicao.setComentario(this.text.getText().toString());
-        this.avalicao.setNota(22.0); // não implementado ainda, valor padrão para não dar erro
+        this.avalicao.setNota(this.nota.getRating()); // não implementado ainda, valor padrão para não dar erro
         this.avalicao.setIdRelLinhaHorarios(1); // não implementado ainda, valor padrão para não dar erro
         this.avalicao.setIdUsuario(1); // não implementado ainda, valor padrão para não dar erro
     }
@@ -70,7 +70,7 @@ public class ActivityAvaliacao extends AppCompatActivity {
     private void sendAvaliacao() {
         this.createAvaliacao();
         AvaliacoesDAO dao = new AvaliacoesDAO(this.avalicao);
-        if (dao.insereAvaliacaoDataBase(this)) {
+        if (dao.insereDataBase(this)) {
             Toast.makeText(ActivityAvaliacao.this, "Comentário adicionado com aucesso!", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(ActivityAvaliacao.this, "Ocorreu algum problema!", Toast.LENGTH_LONG).show();
@@ -80,7 +80,7 @@ public class ActivityAvaliacao extends AppCompatActivity {
     private void readAvaliacao() {
         AvaliacoesDAO dao = new AvaliacoesDAO();
         try {
-            String teste = dao.lerAvaliacaoDataBase(this);
+            String teste = dao.lerDataBase(this);
             Toast.makeText(ActivityAvaliacao.this, teste, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();

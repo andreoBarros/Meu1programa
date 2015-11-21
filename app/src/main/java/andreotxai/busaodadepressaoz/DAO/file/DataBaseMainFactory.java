@@ -11,12 +11,18 @@ import java.io.IOException;
  * Created by Batman on 21/11/2015.
  */
 public class DataBaseMainFactory {
-    final private static String TAG = "DataBaseMainFactory";
+    final protected static String TAG = "DataBaseMainFactory";
     final private static String MAIN_TABLE_NAME = "main.txt";
+    final protected static String EMPRESA_TABLE_NAME = "empresa.txt";
+    final protected static String HORARIO_TABLE_NAME = "horario.txt";
+    final protected static String LINHA_TABLE_NAME = "linha.txt";
+    final protected static String REL_LINHA_HORARIO_TABLE_NAME = "rel_linha_horario.txt";
 
-    private ManageFile fileMainStream;
+    protected ManageFile fileMainStream;
     private String dados;
     private String dadosBanco;
+
+    public DataBaseMainFactory() {}
 
     public DataBaseMainFactory(Context context) {
         try {
