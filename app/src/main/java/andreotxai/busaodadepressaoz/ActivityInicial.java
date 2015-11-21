@@ -67,10 +67,11 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, this.arraySpinner);
         this.spinnerEmpresa.setAdapter(adapter);
-
+        // SPINNERLINHA ESCUTA SPINNEREMPRESA
         this.spinnerLinha = (Spinner) findViewById(R.id.spinner2);
         spinnerEmpresa.setOnItemSelectedListener(this);
         this.spinnerLinha.setOnItemSelectedListener(this.createSpinnerLinhaListener());
+        // END
         // END
 
         //BOTÃO PROXIMO
@@ -95,7 +96,7 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Intent it = new Intent(ActivityInicial.this, ActivityHorarios.class);
+        Intent it = new Intent(ActivityInicial.this, ActivityPesquisa.class);
         //     it.setClass(null, ActivityHorarios.class);
         startActivity(it);
         //noinspection SimplifiableIfStatement
@@ -136,6 +137,7 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
 
         };
     }
+    // aqui é onde a mágica dos spinners acontece
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -175,7 +177,7 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
         }
 
     }
-
+    //end
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

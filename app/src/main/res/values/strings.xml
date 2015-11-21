@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">BusaoDaDepressaoZ</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Pesquisar</string>
     <string name="title_activity_activity_z">ActivityZ</string>
     <string name="txtData">Dia</string>
     <string name="title_activity_activity_avaliacao">ActivityAvaliacao</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_activity_pesquisa">ActivityPesquisa</string>
 </resources>

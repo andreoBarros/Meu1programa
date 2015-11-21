@@ -36,6 +36,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="andreotxai.busaodadepressaoz.ActivityHorarios" />
         </activity>
+        <activity
+            android:name=".ActivityPesquisa"
+            android:label="@string/title_activity_activity_pesquisa"
+            android:parentActivityName=".ActivityInicial"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="andreotxai.busaodadepressaoz.ActivityInicial" />
+        </activity>
     </application>
 
 </manifest>
