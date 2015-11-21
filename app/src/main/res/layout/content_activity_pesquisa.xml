@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_pesquisa"
+    tools:showIn="@layout/activity_activity_z"
     tools:context="andreotxai.busaodadepressaoz.ActivityPesquisa">
 
     <TextView
@@ -21,82 +21,101 @@
         android:layout_alignParentStart="true" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/radioGroup">
+        android:id="@+id/radioGroup"
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
         <RadioButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="Horario"
-            android:id="@+id/radioButton"
-            android:layout_below="@+id/textView2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:id="@+id/radioHorario"
             android:layout_marginTop="46dp"
-            android:checked="false" />
-
+            android:checked="false"
+            android:layout_weight="0.10" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/pesquisaHorarios"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_alignRight="@+id/textView"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_weight="0.10" />
         <RadioButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="Dia"
-            android:id="@+id/radioButton2"
-            android:layout_below="@+id/radioButton"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:id="@+id/radioDia"
             android:layout_marginTop="37dp"
-            android:checked="false" />
+            android:checked="false"
+            android:layout_weight="0.10" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/txtData"
+            android:id="@+id/pesquisaData"
+            android:layout_weight="0.10" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Horários:"
+            android:id="@+id/pesquisaViewData"
+            android:layout_weight="0.10" />
 
         <RadioButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="Empresa"
-            android:id="@+id/radioButton3"
-            android:layout_below="@+id/radioButton2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:id="@+id/radioEmpresa"
             android:layout_marginTop="41dp"
-            android:checked="false" />
+            android:checked="false"
+            android:layout_weight="0.10" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Carris"
+            android:id="@+id/checkCarris"
+            android:checked="false"
+            android:layout_weight="0.10" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Conorte"
+            android:id="@+id/checkConorte"
+            android:checked="false"
+            android:layout_weight="0.10" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="STS"
+            android:id="@+id/checkSTS"
+            android:checked="false"
+            android:layout_weight="0.10" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Unibus"
+            android:id="@+id/checkUnibus"
+            android:checked="false"
+            android:layout_weight="0.10" />
+
     </RadioGroup>
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Carris"
-        android:id="@+id/checkBox"
-        android:checked="false"
-        android:layout_above="@+id/checkBox2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Conorte"
-        android:id="@+id/checkBox2"
-        android:checked="false"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/checkBox"
-        android:layout_alignStart="@+id/checkBox" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="STS"
-        android:id="@+id/checkBox3"
-        android:checked="false"
-        android:layout_below="@+id/checkBox2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Unibus"
-        android:id="@+id/checkBox4"
-        android:checked="false"
-        android:layout_below="@+id/checkBox3"
-        android:layout_alignLeft="@+id/checkBox3"
-        android:layout_alignStart="@+id/checkBox3" />
 
     <Button
         android:layout_width="wrap_content"
@@ -105,6 +124,6 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="44dp" />
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
