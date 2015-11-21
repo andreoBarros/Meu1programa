@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioPesquisa"
         android:weightSum="1"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -39,16 +39,12 @@
             android:id="@+id/radioHorario"
             android:layout_marginTop="46dp"
             android:checked="false"
-            android:layout_weight="0.10" />
+            android:layout_weight="0.10"
+            />
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:id="@+id/pesquisaHorarios"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView"
-            android:layout_alignRight="@+id/textView"
-            android:layout_alignEnd="@+id/textView"
             android:layout_weight="0.10" />
         <RadioButton
             android:layout_width="wrap_content"
@@ -57,7 +53,8 @@
             android:id="@+id/radioDia"
             android:layout_marginTop="37dp"
             android:checked="false"
-            android:layout_weight="0.10" />
+            android:layout_weight="0.10"
+           />
 
         <Button
             android:layout_width="wrap_content"
@@ -81,7 +78,8 @@
             android:id="@+id/radioEmpresa"
             android:layout_marginTop="41dp"
             android:checked="false"
-            android:layout_weight="0.10" />
+            android:layout_weight="0.10"
+            />
 
         <CheckBox
             android:layout_width="wrap_content"
