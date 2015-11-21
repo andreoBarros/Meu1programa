@@ -1,5 +1,6 @@
 package andreotxai.busaodadepressaoz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,19 +12,44 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class ActivityInicial extends AppCompatActivity {
+public class ActivityInicial extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private Spinner spinnerEmpresa;
-    private Spinner spinnerLinha;
+    Spinner spinnerEmpresa;
+    Spinner spinnerLinha;
     private AppCompatButton botaoProximo;
 
     final private String[] arraySpinner = new String[] {
-            "<none>","Carris", "2", "3", "4", "5"
+            "<none>","Carris", "Conorte", "STS", "Unibus"
     };
-    final private String[] arraySpinner2 = new String[] {
-            "<none>","353", "343", "T9", "D43", "T10"
+    final private String[] vazio = new String[] {
+            "<nenhuma empresa selecionada>"
     };
+    final private String[] arraySpinner2Carris = new String[] {
+            "<none>","353 - IPIRANGA / PUC", "343 - CAMPUS / IPIRANGA", "T9 - PUC"
+            , "D43 - UNIVERSITARIA-DIRETA", "T10 - TRIANGULO / ANTONIO DE CARVALHO"
+            , "T1 - TRANSVERSAL1", "T1D - T1 DIRETA"
+    };
+    final private String[] arraySpinner2Conorte = new String[] {
+            "<none>", "637 - CHACARA DAS PEDRAS", "B09 - AEROPORTO/IGUATEMI"
+            , "TR60 - TRONCAL TRIANGULO", "608 - IAPI", "611 - LINDOIA"
+            , "615 - SARANDI", "617 - IGUATEMI"
+    };
+    final private String[] arraySpinner2Sts = new String[] {
+            "<none>", "165 - COHAB", "178 - PRAIA DE BELAS", "179 - SERRARIA"
+            , "187 - PADRE REUS", "209 - RESTINGA", "260 - BELEM VELHO/OSCAR PEREIRA"
+            , "267 - ORFANATROFIO"
+    };
+    final private String[] arraySpinner2Unibus = new String[] {
+            "<none>","314 - PUC RESTINGA", "340 - JARDIM BOTANICO", "344 - SANTA MARIA"
+            , "346 - SAO JOSE", "347 - ALAMEDA", "348 - JARDIM BENTO GONCALVES"
+            , "360 - I P E"
+    };
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +69,7 @@ public class ActivityInicial extends AppCompatActivity {
         this.spinnerEmpresa.setAdapter(adapter);
 
         this.spinnerLinha = (Spinner) findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, this.arraySpinner2);
-        this.spinnerLinha.setAdapter(adapter2);
+        spinnerEmpresa.setOnItemSelectedListener(this);
         this.spinnerLinha.setOnItemSelectedListener(this.createSpinnerLinhaListener());
         // END
 
@@ -56,12 +80,7 @@ public class ActivityInicial extends AppCompatActivity {
         //END
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //Isso faz o spinnerEmpresa 2 só ativar quando algo é selecionado no spinnerEmpresa 1
-        this.spinnerEmpresa.setOnItemSelectedListener(this.createSpinnerEmpresaListener());
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,26 +104,6 @@ public class ActivityInicial extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private AdapterView.OnItemSelectedListener createSpinnerEmpresaListener() {
-        return new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position == 0) {
-                    spinnerLinha.setEnabled(false);
-                } else {
-                    spinnerLinha.setEnabled(true);
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-
-        };
     }
 
     private AdapterView.OnItemSelectedListener createSpinnerLinhaListener() {
@@ -137,5 +136,48 @@ public class ActivityInicial extends AppCompatActivity {
 
         };
     }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        String sp1 = String.valueOf(spinnerEmpresa.getSelectedItem());
+//        Toast.makeText(this, sp1, Toast.LENGTH_SHORT).show(); teste para ver o real valor de sp1
+
+        switch(sp1) {
+            case "<none>":
+                ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, this.vazio);
+                this.spinnerLinha.setAdapter(adapter3);
+                break;
+
+            case "Carris":
+                ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, this.arraySpinner2Carris);
+                this.spinnerLinha.setAdapter(adapter4);
+                break;
+
+            case "Conorte":
+                ArrayAdapter<String> adapter5 = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, this.arraySpinner2Conorte);
+                this.spinnerLinha.setAdapter(adapter5);
+                break;
+
+            case "STS":
+                ArrayAdapter<String> adapter6 = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, this.arraySpinner2Sts);
+                this.spinnerLinha.setAdapter(adapter6);
+                break;
+
+            case "Unibus":
+                ArrayAdapter<String> adapter7 = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, this.arraySpinner2Unibus);
+                this.spinnerLinha.setAdapter(adapter7);
+                break;
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
