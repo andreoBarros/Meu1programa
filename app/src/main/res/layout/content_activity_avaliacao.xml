@@ -38,7 +38,7 @@
         android:maxLines="7"
         android:minLines="7"
         android:maxLength="140"
-        android:layout_below="@+id/estrelinha"
+        android:layout_below="@+id/nota"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"

@@ -15,10 +15,19 @@ import java.io.IOException;
  */
 public class ManageFile {
     private static final String TAG = "ManageFile";
+
+    private String fileName = "main.txt";
     private Context context;
 
-    public ManageFile(Context context){
+    public ManageFile(Context context, String fileName) throws IOException {
         this.context = context;
+        this.fileName = fileName;
+        File file = this.context.getFileStreamPath(this.fileName);
+
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
     }
 
     /**

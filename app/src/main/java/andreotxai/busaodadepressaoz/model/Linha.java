@@ -1,4 +1,4 @@
-package model;
+package andreotxai.busaodadepressaoz.model;
 
 /**
  * Created by Ândreo on 08/11/2015.
