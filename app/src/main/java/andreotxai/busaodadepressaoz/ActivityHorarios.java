@@ -22,6 +22,7 @@ public class ActivityHorarios extends AppCompatActivity {
 
     Calendar cal;
 
+
     private Button btnData;
     private Button btnProximo;
     private TextView txtViewData;
@@ -35,6 +36,9 @@ public class ActivityHorarios extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horarios);
 
@@ -122,6 +126,7 @@ public class ActivityHorarios extends AppCompatActivity {
     class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
@@ -129,16 +134,22 @@ public class ActivityHorarios extends AppCompatActivity {
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-
             // Create a new instance of DatePickerDialog and return it
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+
         public void onDateSet(DatePicker view, int year, int month, int day) {
+
+            final Calendar ce = Calendar.getInstance();
+            final int yearDeHoje = ce.get(Calendar.YEAR);
+            final int monthDeHoje = ce.get(Calendar.MONTH);
+            final int dayDeHoje = ce.get(Calendar.DAY_OF_MONTH);
+
             if (checkValidData(day, month, year)) {
-                cal.set(Calendar.YEAR, year);
-                cal.set(Calendar.MONTH, month);
-                cal.set(Calendar.DAY_OF_MONTH, day);
+                cal.set(Calendar.YEAR, yearDeHoje);
+                cal.set(Calendar.MONTH, monthDeHoje);
+                cal.set(Calendar.DAY_OF_MONTH, dayDeHoje);
 
                 updateTextViewContent(day, month, year);
             } else {
