@@ -50,6 +50,9 @@ public class ActivityPesquisa extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.btnPesquisar = (Button) findViewById(R.id.btnPesquisar);
+        this.btnPesquisar.setOnClickListener(this.createBotaoPesquisarClickListener());
+
         this.Carris = (CheckBox) findViewById(R.id.checkCarris);
         this.Conorte = (CheckBox) findViewById(R.id.checkConorte);
         this.Sts = (CheckBox) findViewById(R.id.checkSTS);
@@ -98,10 +101,6 @@ public class ActivityPesquisa extends AppCompatActivity {
                 Unibus.setVisibility(View.INVISIBLE);
             }
 
-            //END
-            //BOTAO DE PESQUISAR
-            //this.btnPesquisar.setOnClickListener(this.createBotaoPesquisarClickListener());
-            //END
         }
     }
 
@@ -163,16 +162,18 @@ public class ActivityPesquisa extends AppCompatActivity {
     }
     //END
         //PARA BUSCAR A AVALICAO
-  /*  private View.OnClickListener createBotaoPesquisarClickListener() {
+    private View.OnClickListener createBotaoPesquisarClickListener() {
         return new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                readAvaliacao();
+                Intent it = new Intent(ActivityPesquisa.this, ActivityPesquisaResultado.class);
+                startActivity(it);
             }
 
         };
     }
+/*
     private void readAvaliacao() {
         AvaliacoesDAO dao = new AvaliacoesDAO();
         try {
