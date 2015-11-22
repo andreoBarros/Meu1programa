@@ -122,6 +122,7 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
                     botaoProximo.setEnabled(false);
                 } else {
                     botaoProximo.setEnabled(true);
+
                 }
             }
 

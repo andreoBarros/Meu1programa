@@ -20,107 +20,22 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/radioPesquisa"
-        android:weightSum="1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Horario"
-            android:id="@+id/radioHorario"
-            android:layout_marginTop="46dp"
-            android:checked="false"
-            android:layout_weight="0.10"
-            />
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:id="@+id/pesquisaHorarios"
-            android:layout_weight="0.10" />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Dia"
-            android:id="@+id/radioDia"
-            android:layout_marginTop="37dp"
-            android:checked="false"
-            android:layout_weight="0.10"
-           />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="@string/txtData"
-            android:id="@+id/pesquisaData"
-            android:layout_weight="0.10" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Horários:"
-            android:id="@+id/pesquisaViewData"
-            android:layout_weight="0.10" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Empresa"
-            android:id="@+id/radioEmpresa"
-            android:layout_marginTop="41dp"
-            android:checked="false"
-            android:layout_weight="0.10"
-            />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Carris"
-            android:id="@+id/checkCarris"
-            android:checked="false"
-            android:layout_weight="0.10" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Conorte"
-            android:id="@+id/checkConorte"
-            android:checked="false"
-            android:layout_weight="0.10" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="STS"
-            android:id="@+id/checkSTS"
-            android:checked="false"
-            android:layout_weight="0.10" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Unibus"
-            android:id="@+id/checkUnibus"
-            android:checked="false"
-            android:layout_weight="0.10" />
-
-    </RadioGroup>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pesquisar"
         android:id="@+id/btnPesquisar"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textPesquisar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

@@ -27,7 +27,7 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
     private final String stringEmpresa = "Superfaturada";
     private final String stringHora = "07:00";
     private float valorNota = 2;
-
+    private String data = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        data = getIntent().getExtras().getString("stringPesquisar","defaultKey");
 
         defineAsStrings();
 
@@ -52,7 +53,7 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         textDia.setText(stringDia);
         textEmpresa.setText(stringEmpresa);
         textHora.setText(stringHora);
-        textComentario.setText(stringComentario);
+        textComentario.setText(data);
         nota.setRating(valorNota);
     }
 
