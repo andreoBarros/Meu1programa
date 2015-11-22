@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 public class ActivityPesquisaResultado extends AppCompatActivity {
 
-    private float valorNota = 2;
 
     private RatingBar nota;
     private TextView textComentario;
@@ -27,6 +26,8 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
     private final String stringDia = "14/05/98";
     private final String stringEmpresa = "Superfaturada";
     private final String stringHora = "07:00";
+    private float valorNota = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,6 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         setContentView(R.layout.activity_pesquisa_resultado);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        this.nota = (RatingBar) findViewById(R.id.barraNota);
 
         defineAsStrings();
 

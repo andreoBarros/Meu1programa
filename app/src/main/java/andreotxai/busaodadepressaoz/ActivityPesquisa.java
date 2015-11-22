@@ -24,7 +24,7 @@ import java.util.Calendar;
 
 import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
 
-public class ActivityPesquisa extends AppCompatActivity {
+public class ActivityPesquisa extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     Calendar cal;
 
@@ -37,6 +37,7 @@ public class ActivityPesquisa extends AppCompatActivity {
     public RadioGroup radioPesquisa;
     private RadioButton radioHorario, radioDia, radioEmpresa;
     private CheckBox Carris, Unibus, Sts, Conorte;
+    int algumaEmpresa = 0;
 
     final private String[] arraySpinner = new String[] {
             "<none>","08:00", "08:20", "08:40", "09:00", "09:20"
@@ -50,14 +51,16 @@ public class ActivityPesquisa extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        //BOTÃO PESQUISAR
         this.btnPesquisar = (Button) findViewById(R.id.btnPesquisar);
         this.btnPesquisar.setOnClickListener(this.createBotaoPesquisarClickListener());
-
+        //DEFINIÇÕES PARA AS EMPRESAS
         this.Carris = (CheckBox) findViewById(R.id.checkCarris);
         this.Conorte = (CheckBox) findViewById(R.id.checkConorte);
         this.Sts = (CheckBox) findViewById(R.id.checkSTS);
         this.Unibus = (CheckBox) findViewById(R.id.checkUnibus);
-
+        //END
         //DEFINIÇÕES PARA O DATEPIKCER
         this.psqBtnData = (Button) findViewById(R.id.pesquisaData);
         this.psqBtnData.setOnClickListener(this.createBotaoDataClickListener());
@@ -67,41 +70,20 @@ public class ActivityPesquisa extends AppCompatActivity {
         //END
         //HORARIOS
         this.pesquisaHorarios = (Spinner) findViewById(R.id.pesquisaHorarios);
+        pesquisaHorarios.setOnItemSelectedListener(this);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, this.arraySpinner);
         this.pesquisaHorarios.setAdapter(adapter);
         //END
         //OS SELECIONADORES DE PESQUISA
-
+        disabilitaTudoInicio();
         RadioGroup radioPesquisa = (RadioGroup) findViewById(R.id.radioPesquisa);
-
-        int id = radioPesquisa.getCheckedRadioButtonId();
-
-
-        if (id == -1) {
-            psqBtnData.setClickable(false);
-            pesquisaHorarios.setClickable(false);
-            Carris.setClickable(false);
-            Conorte.setClickable(false);
-            Sts.setClickable(false);
-            Unibus.setClickable(false);
-        } else {
-            if (id == R.id.radioHorario) {
-                psqBtnData.setClickable(false);
-                pesquisaHorarios.setClickable(true);
-                Carris.setClickable(false);
-                Conorte.setClickable(false);
-                Sts.setClickable(false);
-                Unibus.setClickable(false);
-                psqBtnData.setVisibility(View.INVISIBLE);
-                pesquisaHorarios.setVisibility(View.VISIBLE);
-                Carris.setVisibility(View.INVISIBLE);
-                Conorte.setVisibility(View.INVISIBLE);
-                Sts.setVisibility(View.INVISIBLE);
-                Unibus.setVisibility(View.INVISIBLE);
+        radioPesquisa.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            funcaoSwitch(checkedId);
             }
-
-        }
+        });
+        //END
     }
 
     //DATE PICKER DIALOG
@@ -128,6 +110,22 @@ public class ActivityPesquisa extends AppCompatActivity {
     private String formatDataText(int day, int month, int year) {
         return day + "/" + (month + 1) + "/" + year;
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (position != 0) {
+            btnPesquisar.setClickable(true);
+        }
+        else{
+            btnPesquisar.setClickable(false);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
@@ -161,19 +159,95 @@ public class ActivityPesquisa extends AppCompatActivity {
         }
     }
     //END
-        //PARA BUSCAR A AVALICAO
+    //PARA BUSCAR A AVALICAO
     private View.OnClickListener createBotaoPesquisarClickListener() {
         return new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                readAvaliacao();
                 Intent it = new Intent(ActivityPesquisa.this, ActivityPesquisaResultado.class);
                 startActivity(it);
             }
 
         };
     }
-/*
+    //fazem a habilitação e desabilitação dos radio buttons
+    public void disabilitaTudoInicio(){
+        psqBtnData.setClickable(false);
+        pesquisaHorarios.setClickable(false);
+        Carris.setClickable(false);
+        Conorte.setClickable(false);
+        Sts.setClickable(false);
+        Unibus.setClickable(false);
+        btnPesquisar.setClickable(false);
+        txtViewData.setVisibility(View.INVISIBLE);
+        psqBtnData.setVisibility(View.INVISIBLE);
+        pesquisaHorarios.setVisibility(View.INVISIBLE);
+        Carris.setVisibility(View.INVISIBLE);
+        Conorte.setVisibility(View.INVISIBLE);
+        Sts.setVisibility(View.INVISIBLE);
+        Unibus.setVisibility(View.INVISIBLE);
+    }//disabilitaTudoInicio() TAMBÉM DESABILITA O BOTÃO PESQUISAR!!!!!!!
+    public void companiasDeOnibus(int checkedId){
+        switch(checkedId) {
+            case R.id.radioEmpresa:
+                Carris.setVisibility(View.VISIBLE);
+                Conorte.setVisibility(View.VISIBLE);
+                Sts.setVisibility(View.VISIBLE);
+                Unibus.setVisibility(View.VISIBLE);
+                break;
+            default:
+                Carris.setVisibility(View.INVISIBLE);
+                Conorte.setVisibility(View.INVISIBLE);
+                Sts.setVisibility(View.INVISIBLE);
+                Unibus.setVisibility(View.INVISIBLE);
+        }
+    }
+    public void funcaoSwitch(int checkedId){
+        switch(checkedId) {
+            case R.id.radioHorario:
+                psqBtnData.setClickable(false);
+                pesquisaHorarios.setClickable(true);
+                Carris.setClickable(false);
+                Conorte.setClickable(false);
+                Sts.setClickable(false);
+                Unibus.setClickable(false);
+                txtViewData.setVisibility(View.INVISIBLE);
+                psqBtnData.setVisibility(View.INVISIBLE);
+                pesquisaHorarios.setVisibility(View.VISIBLE);
+                companiasDeOnibus(checkedId);
+                break;
+            case R.id.radioDia:
+                psqBtnData.setClickable(true);
+                pesquisaHorarios.setClickable(false);
+                Carris.setClickable(false);
+                Conorte.setClickable(false);
+                Sts.setClickable(false);
+                Unibus.setClickable(false);
+                txtViewData.setVisibility(View.VISIBLE);
+                psqBtnData.setVisibility(View.VISIBLE);
+                pesquisaHorarios.setVisibility(View.INVISIBLE);
+                companiasDeOnibus(checkedId);
+
+                break;
+            case R.id.radioEmpresa:
+                psqBtnData.setClickable(false);
+                pesquisaHorarios.setClickable(false);
+                Carris.setClickable(true);
+                Conorte.setClickable(true);
+                Sts.setClickable(true);
+                Unibus.setClickable(true);
+                txtViewData.setVisibility(View.INVISIBLE);
+                psqBtnData.setVisibility(View.INVISIBLE);
+                pesquisaHorarios.setVisibility(View.INVISIBLE);
+                companiasDeOnibus(checkedId);
+                break;
+
+        }
+    }
+    //END
+
     private void readAvaliacao() {
         AvaliacoesDAO dao = new AvaliacoesDAO();
         try {
@@ -184,6 +258,6 @@ public class ActivityPesquisa extends AppCompatActivity {
             Toast.makeText(this, "Problema de leitura!", Toast.LENGTH_LONG).show();
         }
     }
-    //END */
+    //END
 
 }
