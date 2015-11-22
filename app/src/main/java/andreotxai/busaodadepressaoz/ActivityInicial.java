@@ -29,6 +29,8 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
     private Spinner spinnerLinha;
     private AppCompatButton botaoProximo;
     private List<Empresa> listaEmpresa;
+    private String spEmpresa = "";
+    private String spLinha = "";
 
     final private String[] arraySpinner = new String[] {
             "<none>","Carris", "Conorte", "STS", "Unibus"
@@ -118,6 +120,8 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
 
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                spLinha = String.valueOf(spinnerLinha.getSelectedItem());
+
                 if (position == 0) {
                     botaoProximo.setEnabled(false);
                 } else {
@@ -139,6 +143,8 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(ActivityInicial.this, ActivityHorarios.class);
+                it.putExtra("stringEmpresa", spEmpresa);
+                it.putExtra("stringLinha", spLinha);
                 startActivity(it);
             }
 
@@ -149,14 +155,15 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        String sp1 = String.valueOf(spinnerEmpresa.getSelectedItem());
+        spEmpresa = String.valueOf(spinnerEmpresa.getSelectedItem());
 //        Toast.makeText(this, sp1, Toast.LENGTH_SHORT).show(); teste para ver o real valor de sp1
 
-        switch(sp1) {
+        switch(spEmpresa) {
             case "<none>":
                 ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this,
                         android.R.layout.simple_spinner_item, this.vazio);
                 this.spinnerLinha.setAdapter(adapter3);
+
                 break;
 
             case "Carris":

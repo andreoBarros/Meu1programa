@@ -25,10 +25,10 @@ public class ActivityAvaliacao extends AppCompatActivity {
     private Avalicoes avalicao;
     private EditText text;
 
-    private final String stringLinha = "Velho - Reaproveitado/Superfaturada";
-    private final String stringDia = "14/05/98";
-    private final String stringEmpresa = "Superfaturada";
-    private final String stringHora = "07:00";
+    private  String stringLinha = "";
+    private  String stringDia = "";
+    private  String stringEmpresa = "";
+    private  String stringHora = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,11 @@ public class ActivityAvaliacao extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //SETA DE VOLTAR
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //VALORES DA ACTIVITY ANTERIOR
+        stringLinha = getIntent().getExtras().getString("finalEmpresa","defaultKey");
+        stringEmpresa = getIntent().getExtras().getString("finalLinha","defaultKey");
+        stringHora = getIntent().getExtras().getString("finalHorario","defaultKey");
+        stringDia = getIntent().getExtras().getString("finalData","defaultKey");
 
         this.btnEnviar = (AppCompatButton) findViewById(R.id.btnEnviar);
         this.nota = (RatingBar) findViewById(R.id.nota);

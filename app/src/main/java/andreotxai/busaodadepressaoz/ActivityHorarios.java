@@ -29,6 +29,11 @@ public class ActivityHorarios extends AppCompatActivity {
     private Spinner spinnerHorarios;
     private DialogFragment dateFragment;
 
+    private String tmpEmpresa;
+    private String tmpLinha;
+    private String data;
+    private String horario;
+
     final private String[] arraySpinner = new String[] {
             "<none>","08:00", "08:20", "08:40", "09:00", "09:20"
     };
@@ -37,8 +42,6 @@ public class ActivityHorarios extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horarios);
 
@@ -46,6 +49,9 @@ public class ActivityHorarios extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //SETA DE VOLTAR
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        tmpEmpresa = getIntent().getExtras().getString("stringEmpresa","defaultKey");
+        tmpLinha = getIntent().getExtras().getString("stringLinha","defaultKey");
 
 
         this.btnProximo = (Button) findViewById(R.id.botaoAvancar);
@@ -64,6 +70,7 @@ public class ActivityHorarios extends AppCompatActivity {
 
         this.cal = Calendar.getInstance();
         this.updateTextViewContent(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+
     }
 
     public void showDatePickerDialog(View v) {
@@ -83,6 +90,7 @@ public class ActivityHorarios extends AppCompatActivity {
 
     private void updateTextViewContent(int day, int month, int year) {
         this.txtViewData.setText(this.formatDataText(day,month,year));
+
     }
 
     private AdapterView.OnItemSelectedListener createSpinnerEmpresaListener() {
@@ -90,6 +98,8 @@ public class ActivityHorarios extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                horario = String.valueOf(spinnerHorarios.getSelectedItem());
+
                 if (position == 0) {
                     btnProximo.setEnabled(false);
                 } else {
@@ -119,7 +129,12 @@ public class ActivityHorarios extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                 Intent it = new Intent(ActivityHorarios.this, ActivityAvaliacao.class);
+                String strData = txtViewData.getText().toString();
+                Intent it = new Intent(ActivityHorarios.this, ActivityAvaliacao.class);
+                it.putExtra("finalEmpresa", tmpEmpresa);
+                it.putExtra("finalLinha", tmpLinha);
+                it.putExtra("finalHorario", horario);
+                it.putExtra("finalData", strData);
                  startActivity(it);
             }
 
