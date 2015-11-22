@@ -36,6 +36,7 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         defineAsStrings();
 
 

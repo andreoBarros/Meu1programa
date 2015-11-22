@@ -29,6 +29,9 @@ public class ActivityAvaliacao extends AppCompatActivity {
         setContentView(R.layout.activity_activity_avaliacao);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //SETA DE VOLTAR
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         this.btnEnviar = (AppCompatButton) findViewById(R.id.btnEnviar);
         this.nota = (RatingBar) findViewById(R.id.nota);

@@ -44,6 +44,9 @@ public class ActivityHorarios extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //SETA DE VOLTAR
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         this.btnProximo = (Button) findViewById(R.id.botaoAvancar);
         this.btnProximo.setOnClickListener(this.createBotaoProximoClickListener());

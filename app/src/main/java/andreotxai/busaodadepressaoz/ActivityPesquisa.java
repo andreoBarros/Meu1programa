@@ -50,7 +50,8 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_pesquisa);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //SETA DE VOLTAR
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //BOTÃO PESQUISAR
         this.btnPesquisar = (Button) findViewById(R.id.btnPesquisar);
