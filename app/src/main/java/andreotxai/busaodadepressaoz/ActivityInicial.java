@@ -16,15 +16,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.List;
 
 import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
 import andreotxai.busaodadepressaoz.DAO.EmpresasDAO;
+import andreotxai.busaodadepressaoz.model.Empresa;
+import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
 
 public class ActivityInicial extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    Spinner spinnerEmpresa;
-    Spinner spinnerLinha;
+    private Spinner spinnerEmpresa;
+    private Spinner spinnerLinha;
     private AppCompatButton botaoProximo;
+    private List<Empresa> listaEmpresa;
 
     final private String[] arraySpinner = new String[] {
             "<none>","Carris", "Conorte", "STS", "Unibus"
@@ -82,7 +86,7 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
         this.botaoProximo.setOnClickListener(this.createBotaoProximoClickListener());
         //END
 
-        carregarEmpresas();
+        // carregarEmpresas();
     }
 
     @Override
@@ -185,8 +189,23 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
     private void carregarEmpresas() {
         EmpresasDAO dao = new EmpresasDAO();
         try {
-            String teste = dao.lerDataBase(this);
-            Toast.makeText(this, teste, Toast.LENGTH_LONG).show();
+            String empresaDBvalue = dao.lerDataBase(this);
+            if (empresaDBvalue.length() == 0) {
+                dao.insereEmpresas(this);
+                dao.lerDataBase(this);
+            } else {
+                this.listaEmpresa = DataBaseValuesConvert.databaseToApplicationEmpresas(empresaDBvalue);
+                String[] empresas = new String[listaEmpresa.size()+1];
+                empresas[0] = "<none>";
+                for(int i = 0 ; i <= (listaEmpresa.size()-1) ; i++) {
+                    empresas[i+1] = listaEmpresa.get(i).getNome();
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, empresas);
+                this.spinnerEmpresa.setAdapter(adapter);
+                // Toast.makeText(this, listaEmpresa.size(), Toast.LENGTH_LONG).show();
+            }
+            // Toast.makeText(this, String.valueOf(empresaDBvalue.length()), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Problema de leitura!", Toast.LENGTH_LONG).show();

@@ -7,6 +7,13 @@ public class Empresa {
     int idEmpresa;
     String nome;
 
+    public Empresa(){}
+
+    public Empresa(int idEmpresa, String nome) {
+        this.idEmpresa = idEmpresa;
+        this.nome = nome;
+    }
+
     public int getIdEmpresa() {
         return idEmpresa;
     }
