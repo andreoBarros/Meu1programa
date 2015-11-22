@@ -39,8 +39,8 @@ public class ActivityAvaliacao extends AppCompatActivity {
         //SETA DE VOLTAR
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //VALORES DA ACTIVITY ANTERIOR
-        stringLinha = getIntent().getExtras().getString("finalEmpresa","defaultKey");
-        stringEmpresa = getIntent().getExtras().getString("finalLinha","defaultKey");
+        stringLinha = getIntent().getExtras().getString("finalLinha","defaultKey");
+        stringEmpresa = getIntent().getExtras().getString("finalEmpresa","defaultKey");
         stringHora = getIntent().getExtras().getString("finalHorario","defaultKey");
         stringDia = getIntent().getExtras().getString("finalData","defaultKey");
 
