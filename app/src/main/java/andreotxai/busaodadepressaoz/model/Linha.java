@@ -6,9 +6,15 @@ package andreotxai.busaodadepressaoz.model;
 public class Linha {
 
         int idLinha;
+        int idEmpresa;
         String codigo;
         String nome;
-        String idEmpresa;
+
+        public Linha(int idLinha, String nome, int idEmpresa) {
+                this.idLinha = idLinha;
+                this.nome = nome;
+                this.idEmpresa = idEmpresa;
+        }
 
         public int getIdLinha() {
                 return idLinha;
@@ -34,11 +40,11 @@ public class Linha {
                 this.nome = nome;
         }
 
-        public String getIdEmpresa() {
+        public int getIdEmpresa() {
                 return idEmpresa;
         }
 
-        public void setIdEmpresa(String idEmpresa) {
+        public void setIdEmpresa(int idEmpresa) {
                 this.idEmpresa = idEmpresa;
         }
 }

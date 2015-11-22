@@ -12,6 +12,7 @@ public class Avalicoes {
     private int idUsuario;
     private double nota;
     private String comentario;
+    private String data;
 
     public int getIdAvaliacao() {
         return idAvaliacao;
@@ -53,4 +54,11 @@ public class Avalicoes {
         this.comentario = comentario;
     }
 
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 }

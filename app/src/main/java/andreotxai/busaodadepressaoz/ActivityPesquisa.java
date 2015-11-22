@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
+import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
+import andreotxai.busaodadepressaoz.util.DataTree;
 
 public class ActivityPesquisa extends AppCompatActivity {
 
@@ -62,8 +64,14 @@ public class ActivityPesquisa extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                readAvaliacao();
                 String stringPesquisar = textPesquisar.getText().toString();
+                try {
+                    String teste = DataBaseValuesConvert.dataTree.pesquisaPorPalavra(ActivityPesquisa.this, stringPesquisar);
+                    Toast.makeText(ActivityPesquisa.this, teste, Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ActivityPesquisa.this, "problema ao ler avaliacao!", Toast.LENGTH_LONG).show();
+                }
                 Intent it = new Intent(ActivityPesquisa.this, ActivityPesquisaResultado.class);
        //         Bundle basket = new Bundle();
        //         basket.putString("txtPesquisar", stringPesquisar);
@@ -72,17 +80,6 @@ public class ActivityPesquisa extends AppCompatActivity {
             }
 
         };
-    }
-
-    private void readAvaliacao() {
-        AvaliacoesDAO dao = new AvaliacoesDAO();
-        try {
-            String teste = dao.lerDataBase(this);
-            Toast.makeText(this, teste, Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Problema de leitura!", Toast.LENGTH_LONG).show();
-        }
     }
     //END
 

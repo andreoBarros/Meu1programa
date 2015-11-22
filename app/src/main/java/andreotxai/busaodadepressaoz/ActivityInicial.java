@@ -1,6 +1,5 @@
 package andreotxai.busaodadepressaoz;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,13 +11,11 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
 
-import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
 import andreotxai.busaodadepressaoz.DAO.EmpresasDAO;
 import andreotxai.busaodadepressaoz.model.Empresa;
 import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
@@ -32,38 +29,16 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
     private String spEmpresa = "";
     private String spLinha = "";
 
-    final private String[] arraySpinner = new String[] {
-            "<none>","Carris", "Conorte", "STS", "Unibus"
-    };
-    final private String[] vazio = new String[] {
-            "<nenhuma empresa selecionada>"
-    };
-    final private String[] arraySpinner2Carris = new String[] {
-            "<none>","353 - IPIRANGA / PUC", "343 - CAMPUS / IPIRANGA", "T9 - PUC"
-            , "D43 - UNIVERSITARIA-DIRETA", "T10 - TRIANGULO / ANTONIO DE CARVALHO"
-            , "T1 - TRANSVERSAL1", "T1D - T1 DIRETA"
-    };
-    final private String[] arraySpinner2Conorte = new String[] {
-            "<none>", "637 - CHACARA DAS PEDRAS", "B09 - AEROPORTO/IGUATEMI"
-            , "TR60 - TRONCAL TRIANGULO", "608 - IAPI", "611 - LINDOIA"
-            , "615 - SARANDI", "617 - IGUATEMI"
-    };
-    final private String[] arraySpinner2Sts = new String[] {
-            "<none>", "165 - COHAB", "178 - PRAIA DE BELAS", "179 - SERRARIA"
-            , "187 - PADRE REUS", "209 - RESTINGA", "260 - BELEM VELHO/OSCAR PEREIRA"
-            , "267 - ORFANATROFIO"
-    };
-    final private String[] arraySpinner2Unibus = new String[] {
-            "<none>","314 - PUC RESTINGA", "340 - JARDIM BOTANICO", "344 - SANTA MARIA"
-            , "346 - SAO JOSE", "347 - ALAMEDA", "348 - JARDIM BENTO GONCALVES"
-            , "360 - I P E"
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicial);
-
+        try {
+            DataBaseValuesConvert.mountDataTree(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Problema de leitura do banco de dados!", Toast.LENGTH_LONG).show();
+        }
 
         // TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -73,7 +48,7 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
         // SPINNERS
         this.spinnerEmpresa = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, this.arraySpinner);
+                android.R.layout.simple_spinner_item, DataBaseValuesConvert.arraySpinnerEmpresa);
         this.spinnerEmpresa.setAdapter(adapter);
         // SPINNERLINHA ESCUTA SPINNEREMPRESA
         this.spinnerLinha = (Spinner) findViewById(R.id.spinner2);
@@ -161,32 +136,32 @@ public class ActivityInicial extends AppCompatActivity implements AdapterView.On
         switch(spEmpresa) {
             case "<none>":
                 ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this,
-                        android.R.layout.simple_spinner_item, this.vazio);
+                        android.R.layout.simple_spinner_item, DataBaseValuesConvert.vazio);
                 this.spinnerLinha.setAdapter(adapter3);
 
                 break;
 
             case "Carris":
                 ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this,
-                        android.R.layout.simple_spinner_item, this.arraySpinner2Carris);
+                        android.R.layout.simple_spinner_item, DataBaseValuesConvert.arraySpinner2Carris);
                 this.spinnerLinha.setAdapter(adapter4);
                 break;
 
             case "Conorte":
                 ArrayAdapter<String> adapter5 = new ArrayAdapter<>(this,
-                        android.R.layout.simple_spinner_item, this.arraySpinner2Conorte);
+                        android.R.layout.simple_spinner_item, DataBaseValuesConvert.arraySpinner2Conorte);
                 this.spinnerLinha.setAdapter(adapter5);
                 break;
 
             case "STS":
                 ArrayAdapter<String> adapter6 = new ArrayAdapter<>(this,
-                        android.R.layout.simple_spinner_item, this.arraySpinner2Sts);
+                        android.R.layout.simple_spinner_item, DataBaseValuesConvert.arraySpinner2Sts);
                 this.spinnerLinha.setAdapter(adapter6);
                 break;
 
             case "Unibus":
                 ArrayAdapter<String> adapter7 = new ArrayAdapter<>(this,
-                        android.R.layout.simple_spinner_item, this.arraySpinner2Unibus);
+                        android.R.layout.simple_spinner_item, DataBaseValuesConvert.arraySpinner2Unibus);
                 this.spinnerLinha.setAdapter(adapter7);
                 break;
         }

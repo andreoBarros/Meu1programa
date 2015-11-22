@@ -15,6 +15,10 @@ import java.io.IOException;
 
 import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
 import andreotxai.busaodadepressaoz.model.Avalicoes;
+import andreotxai.busaodadepressaoz.model.Empresa;
+import andreotxai.busaodadepressaoz.model.Horarios;
+import andreotxai.busaodadepressaoz.model.Linha;
+import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
 import andreotxai.busaodadepressaoz.util.DataTree;
 
 public class ActivityAvaliacao extends AppCompatActivity {
@@ -78,14 +82,34 @@ public class ActivityAvaliacao extends AppCompatActivity {
     private void createAvaliacao() {
         this.avalicao = new Avalicoes();
         this.avalicao.setComentario(this.text.getText().toString());
-        this.avalicao.setNota(this.nota.getRating()); // não implementado ainda, valor padrão para não dar erro
-        this.avalicao.setIdRelLinhaHorarios(1); // não implementado ainda, valor padrão para não dar erro
-        this.avalicao.setIdUsuario(1); // não implementado ainda, valor padrão para não dar erro
+        this.avalicao.setNota(this.nota.getRating());
+        this.avalicao.setData(this.stringDia);
+    }
+
+    private Empresa createEmpresa() {
+        int idEmpresa = DataBaseValuesConvert.getEmpresaIndex(stringEmpresa);
+        return new Empresa(idEmpresa, stringEmpresa);
+    }
+
+    private Linha createLinha(Empresa empresa) {
+        int idLinha = DataBaseValuesConvert.getLinhaIndex(stringLinha, empresa.getNome());
+        return new Linha(idLinha, stringEmpresa, empresa.getIdEmpresa());
+    }
+
+    private Horarios createHorario() {
+        int idHorario = DataBaseValuesConvert.getHorarioIndex(stringHora);
+        return new Horarios(idHorario, stringHora);
     }
 
     private void sendAvaliacao() {
         this.createAvaliacao();
+        Empresa empresa = this.createEmpresa();
+        Linha linha = this.createLinha(empresa);
+        Horarios horario = this.createHorario();
         AvaliacoesDAO dao = new AvaliacoesDAO(this.avalicao);
+        dao.setEmpresa(empresa);
+        dao.setLinha(linha);
+        dao.setHorario(horario);
         if (dao.insereDataBase(this)) {
             Toast.makeText(ActivityAvaliacao.this, "Comentário adicionado com aucesso!", Toast.LENGTH_LONG).show();
         } else {
@@ -97,9 +121,7 @@ public class ActivityAvaliacao extends AppCompatActivity {
         AvaliacoesDAO dao = new AvaliacoesDAO();
         try {
             String teste = dao.lerDataBase(this);
-            DataTree dataTree = new DataTree(teste);
-            dataTree.montaArvore();
-            Toast.makeText(ActivityAvaliacao.this, dataTree.funcaoTeste(), Toast.LENGTH_LONG).show();
+            Toast.makeText(ActivityAvaliacao.this, teste, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(ActivityAvaliacao.this, "Problema de leitura!", Toast.LENGTH_LONG).show();

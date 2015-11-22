@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import andreotxai.busaodadepressaoz.DAO.file.DataBaseMainFactory;
 import andreotxai.busaodadepressaoz.model.Avalicoes;
+import andreotxai.busaodadepressaoz.model.Empresa;
+import andreotxai.busaodadepressaoz.model.Horarios;
+import andreotxai.busaodadepressaoz.model.Linha;
 
 /**
  * Classe para inserção e pesquisa no banco de dados por avaliações.
@@ -13,22 +16,28 @@ import andreotxai.busaodadepressaoz.model.Avalicoes;
  */
 public class AvaliacoesDAO implements IModelDAO {
     private Avalicoes avalicoes;
+    private Empresa empresa;
+    private Linha linha;
+    private Horarios horario;
     private String stringDatabase;
 
     public AvaliacoesDAO() {}
 
     public AvaliacoesDAO(Avalicoes avalicoes) {
         this.avalicoes = avalicoes;
-        this.montaStringDataBase();
     }
 
     private void montaStringDataBase() {
-        this.stringDatabase = String.valueOf(this.avalicoes.getIdRelLinhaHorarios())
+        this.stringDatabase = String.valueOf(this.empresa.getIdEmpresa())
                 + " " + String.valueOf(this.avalicoes.getNota())
-                + " <[" + this.avalicoes.getComentario() + "]>";
+                + " <[" + this.avalicoes.getComentario() + "]>"
+                + " " + String.valueOf(this.linha.getIdLinha())
+                + " " + String.valueOf(this.horario.getIdHorario())
+                + " " + this.avalicoes.getData();
     }
 
     public boolean insereDataBase(Context context) {
+        this.montaStringDataBase();
         DataBaseMainFactory dbConnection = new DataBaseMainFactory(context);
         dbConnection.setDados(this.stringDatabase);
         return dbConnection.insertData();
@@ -39,5 +48,33 @@ public class AvaliacoesDAO implements IModelDAO {
         return dbConnection.readData();
     }
 
+    public String pegarAvaliacaoBanco(Context context, int index) throws IOException {
+        DataBaseMainFactory dbConnection = new DataBaseMainFactory(context);
+        String linhaAvaliacao = dbConnection.readData().split("\n")[index];
+        return linhaAvaliacao;
+    }
 
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public Linha getLinha() {
+        return linha;
+    }
+
+    public void setLinha(Linha linha) {
+        this.linha = linha;
+    }
+
+    public Horarios getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Horarios horario) {
+        this.horario = horario;
+    }
 }

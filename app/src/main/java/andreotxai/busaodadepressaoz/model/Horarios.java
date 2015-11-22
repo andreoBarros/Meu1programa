@@ -7,5 +7,25 @@ public class Horarios {
 
     int idHorario;
     String horario;
-    int idLinha;
+
+    public Horarios(int idHorario, String horario) {
+        this.idHorario = idHorario;
+        this.horario = horario;
+    }
+
+    public int getIdHorario() {
+        return idHorario;
+    }
+
+    public void setIdHorario(int idHorario) {
+        this.idHorario = idHorario;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
 }

@@ -18,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
+
 public class ActivityHorarios extends AppCompatActivity {
 
     Calendar cal;
@@ -34,9 +36,6 @@ public class ActivityHorarios extends AppCompatActivity {
     private String data;
     private String horario;
 
-    final private String[] arraySpinner = new String[] {
-            "<none>","08:00", "08:20", "08:40", "09:00", "09:20"
-    };
     final private static String STRING_MENSAGEM = "Data inválida!";
 
     @Override
@@ -64,7 +63,7 @@ public class ActivityHorarios extends AppCompatActivity {
 
         this.spinnerHorarios = (Spinner) findViewById(R.id.spinnerHorarios);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, this.arraySpinner);
+                android.R.layout.simple_spinner_item, DataBaseValuesConvert.arraySpinnerHorario);
         this.spinnerHorarios.setAdapter(adapter);
         this.spinnerHorarios.setOnItemSelectedListener(this.createSpinnerEmpresaListener());
 
@@ -135,7 +134,7 @@ public class ActivityHorarios extends AppCompatActivity {
                 it.putExtra("finalLinha", tmpLinha);
                 it.putExtra("finalHorario", horario);
                 it.putExtra("finalData", strData);
-                 startActivity(it);
+                startActivity(it);
             }
 
         };
@@ -143,7 +142,6 @@ public class ActivityHorarios extends AppCompatActivity {
 
     class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
-
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {

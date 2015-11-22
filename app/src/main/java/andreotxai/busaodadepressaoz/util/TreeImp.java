@@ -9,8 +9,8 @@ import java.util.List;
 public class TreeImp {
     private Node<String> root;
 
-    public TreeImp(String rootData) {
-        root = new Node<String>(rootData);
+    public TreeImp(String rootData, int indexComentario) {
+        root = new Node<String>(rootData, indexComentario);
         root.data = rootData;
         root.children = new ArrayList<Node<String>>();
     }
@@ -21,11 +21,13 @@ public class TreeImp {
 
     public static class Node<String> {
         private String data;
+        private int indexComentario;
         private Node<String> parent;
         private ArrayList<Node<String>> children;
 
-        public Node(String data) {
+        public Node(String data, int indexComentario) {
             this.data = data;
+            this.indexComentario = indexComentario;
             this.children = new ArrayList<Node<String>>();
         }
 
@@ -33,8 +35,8 @@ public class TreeImp {
             return this.children.size();
         }
 
-        public int add(String data) {
-            Node<String> node = new Node<String>(data);
+        public int add(String data, int indexComentario) {
+            Node<String> node = new Node<String>(data,indexComentario);
             this.children.add(node);
             return this.children.indexOf(node);
         }
@@ -54,6 +56,10 @@ public class TreeImp {
 
         public String getData() {
             return this.data;
+        }
+
+        public int getIndexComentario() {
+            return  this.indexComentario;
         }
 
         public List<Node<String>> getChildren() {
