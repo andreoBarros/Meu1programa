@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
 import andreotxai.busaodadepressaoz.model.Avalicoes;
+import andreotxai.busaodadepressaoz.util.DataTree;
 
 public class ActivityAvaliacao extends AppCompatActivity {
 
@@ -92,7 +93,8 @@ public class ActivityAvaliacao extends AppCompatActivity {
         AvaliacoesDAO dao = new AvaliacoesDAO();
         try {
             String teste = dao.lerDataBase(this);
-            Toast.makeText(ActivityAvaliacao.this, teste, Toast.LENGTH_LONG).show();
+            DataTree dataTree = new DataTree(teste);
+            Toast.makeText(ActivityAvaliacao.this, dataTree.montaArvore(), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(ActivityAvaliacao.this, "Problema de leitura!", Toast.LENGTH_LONG).show();

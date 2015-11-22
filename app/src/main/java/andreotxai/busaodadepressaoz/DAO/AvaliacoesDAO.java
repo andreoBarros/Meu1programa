@@ -38,4 +38,6 @@ public class AvaliacoesDAO implements IModelDAO {
         DataBaseMainFactory dbConnection = new DataBaseMainFactory(context);
         return dbConnection.readData();
     }
+
+
 }
