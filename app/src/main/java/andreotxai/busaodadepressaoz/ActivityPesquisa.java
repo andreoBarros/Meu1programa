@@ -37,7 +37,6 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
     public RadioGroup radioPesquisa;
     private RadioButton radioHorario, radioDia, radioEmpresa;
     private CheckBox Carris, Unibus, Sts, Conorte;
-    int algumaEmpresa = 0;
 
     final private String[] arraySpinner = new String[] {
             "<none>","08:00", "08:20", "08:40", "09:00", "09:20"
@@ -61,6 +60,7 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
         this.Conorte = (CheckBox) findViewById(R.id.checkConorte);
         this.Sts = (CheckBox) findViewById(R.id.checkSTS);
         this.Unibus = (CheckBox) findViewById(R.id.checkUnibus);
+
         //END
         //DEFINIÇÕES PARA O DATEPIKCER
         this.psqBtnData = (Button) findViewById(R.id.pesquisaData);
@@ -71,11 +71,14 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
         //END
         //HORARIOS
         this.pesquisaHorarios = (Spinner) findViewById(R.id.pesquisaHorarios);
-        pesquisaHorarios.setOnItemSelectedListener(this);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, this.arraySpinner);
         this.pesquisaHorarios.setAdapter(adapter);
         //END
+        //LISTENERS
+        btnPesquisar.setClickable(false);
+        pesquisaHorarios.setOnItemSelectedListener(this);
+        selecionaDia(0);
         //OS SELECIONADORES DE PESQUISA
         disabilitaTudoInicio();
         RadioGroup radioPesquisa = (RadioGroup) findViewById(R.id.radioPesquisa);
@@ -85,6 +88,7 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
             }
         });
         //END
+        //enfim o botão faz algo :)
     }
 
     //DATE PICKER DIALOG
@@ -106,21 +110,44 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
                 && (day <= cal.get(Calendar.DAY_OF_MONTH)));
     }
     private void updateTextViewContent(int day, int month, int year) {
-        this.txtViewData.setText(this.formatDataText(day,month,year));
+        this.txtViewData.setText(this.formatDataText(day, month, year));
     }
     private String formatDataText(int day, int month, int year) {
         return day + "/" + (month + 1) + "/" + year;
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position != 0) {
-            btnPesquisar.setClickable(true);
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long checkedId) {
+        habilitaPesquisar(position);
+    }
+    public boolean selecionaEmpresa(){
+        if (Carris.isChecked()||Conorte.isChecked()||Sts.isChecked()||Unibus.isChecked()) {
+            return true;
         }
-        else{
-            btnPesquisar.setClickable(false);
+        return false;
+    }
+    public boolean selecionaHorario(int position){
+        if (position != 0){
+            return true;
+        }
+        return false;
+    }
+    public boolean selecionaDia(int checkedId){
+        switch (checkedId){
+            case R.id.radioDia:
+                return true;
+            default:
+                return false;
         }
     }
+
+    public void habilitaPesquisar(int position){
+        if(selecionaEmpresa()||selecionaHorario(position)||selecionaDia(position)){
+            btnPesquisar.setClickable(true);
+        }
+    }
+
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -190,6 +217,12 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
         Sts.setVisibility(View.INVISIBLE);
         Unibus.setVisibility(View.INVISIBLE);
     }//disabilitaTudoInicio() TAMBÉM DESABILITA O BOTÃO PESQUISAR!!!!!!!
+    public void tiraCheckbox(){
+        Carris.setChecked(false);
+        Conorte.setChecked(false);
+        Sts.setChecked(false);
+        Unibus.setChecked(false);
+    }
     public void companiasDeOnibus(int checkedId){
         switch(checkedId) {
             case R.id.radioEmpresa:
@@ -218,8 +251,11 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
                 psqBtnData.setVisibility(View.INVISIBLE);
                 pesquisaHorarios.setVisibility(View.VISIBLE);
                 companiasDeOnibus(checkedId);
+                habilitaPesquisar(checkedId);
+                tiraCheckbox();
                 break;
             case R.id.radioDia:
+                habilitaPesquisar(0);
                 psqBtnData.setClickable(true);
                 pesquisaHorarios.setClickable(false);
                 Carris.setClickable(false);
@@ -230,9 +266,10 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
                 psqBtnData.setVisibility(View.VISIBLE);
                 pesquisaHorarios.setVisibility(View.INVISIBLE);
                 companiasDeOnibus(checkedId);
-
+                habilitaPesquisar(checkedId);
                 break;
             case R.id.radioEmpresa:
+                habilitaPesquisar(0);
                 psqBtnData.setClickable(false);
                 pesquisaHorarios.setClickable(false);
                 Carris.setClickable(true);
@@ -243,6 +280,8 @@ public class ActivityPesquisa extends AppCompatActivity implements AdapterView.O
                 psqBtnData.setVisibility(View.INVISIBLE);
                 pesquisaHorarios.setVisibility(View.INVISIBLE);
                 companiasDeOnibus(checkedId);
+                habilitaPesquisar(checkedId);
+                tiraCheckbox();
                 break;
 
         }
