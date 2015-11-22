@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -23,6 +24,11 @@ public class ActivityAvaliacao extends AppCompatActivity {
     private Avalicoes avalicao;
     private EditText text;
 
+    private final String stringLinha = "Velho - Reaproveitado/Superfaturada";
+    private final String stringDia = "14/05/98";
+    private final String stringEmpresa = "Superfaturada";
+    private final String stringHora = "07:00";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +43,8 @@ public class ActivityAvaliacao extends AppCompatActivity {
         this.nota = (RatingBar) findViewById(R.id.nota);
         this.text = (EditText) findViewById(R.id.caixaTexto);
         this.btnTeste = (Button) findViewById(R.id.buttonTeste);
+
+        defineAsStrings();
 
         //botao enviar
         btnEnviar.setOnClickListener(this.createBotaoEnviarListener());
@@ -90,4 +98,16 @@ public class ActivityAvaliacao extends AppCompatActivity {
             Toast.makeText(ActivityAvaliacao.this, "Problema de leitura!", Toast.LENGTH_LONG).show();
         }
     }
+
+    public void defineAsStrings(){
+        TextView textLinha = (TextView) findViewById(R.id.avalLinha);
+        TextView textDia = (TextView) findViewById(R.id.avalDia);
+        TextView textEmpresa = (TextView) findViewById(R.id.avalEmpresa);
+        TextView textHora = (TextView) findViewById(R.id.avalHora);
+        textLinha.setText(stringLinha);
+        textDia.setText(stringDia);
+        textEmpresa.setText(stringEmpresa);
+        textHora.setText(stringHora);
+    }
+
 }
