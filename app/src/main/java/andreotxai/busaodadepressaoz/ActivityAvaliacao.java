@@ -98,7 +98,8 @@ public class ActivityAvaliacao extends AppCompatActivity {
         try {
             String teste = dao.lerDataBase(this);
             DataTree dataTree = new DataTree(teste);
-            Toast.makeText(ActivityAvaliacao.this, dataTree.montaArvore(), Toast.LENGTH_LONG).show();
+            dataTree.montaArvore();
+            Toast.makeText(ActivityAvaliacao.this, dataTree.funcaoTeste(), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(ActivityAvaliacao.this, "Problema de leitura!", Toast.LENGTH_LONG).show();
