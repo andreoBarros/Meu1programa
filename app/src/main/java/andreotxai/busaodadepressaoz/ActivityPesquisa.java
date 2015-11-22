@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import andreotxai.busaodadepressaoz.DAO.AvaliacoesDAO;
 import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
@@ -66,8 +68,14 @@ public class ActivityPesquisa extends AppCompatActivity {
             public void onClick(View v) {
                 String stringPesquisar = textPesquisar.getText().toString();
                 try {
-                    String teste = DataBaseValuesConvert.dataTree.pesquisaPorPalavra(ActivityPesquisa.this, stringPesquisar);
-                    Toast.makeText(ActivityPesquisa.this, teste, Toast.LENGTH_LONG).show();
+                    String atributosAvaliacao = DataBaseValuesConvert.dataTree.pesquisaPorPalavra(ActivityPesquisa.this, stringPesquisar);
+                    String comentario = "";
+                            Matcher matcher = Pattern.compile(DataBaseValuesConvert.REGEX_COMENTARIO).matcher(atributosAvaliacao);
+                    if (matcher.find()) {
+                        comentario = matcher.group(0);
+                    }
+                    atributosAvaliacao = atributosAvaliacao.replace("<[" + comentario + "]>", "");
+                    Toast.makeText(ActivityPesquisa.this, atributosAvaliacao + " -> " + comentario, Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(ActivityPesquisa.this, "problema ao ler avaliacao!", Toast.LENGTH_LONG).show();

@@ -15,7 +15,6 @@ import andreotxai.busaodadepressaoz.model.Avalicoes;
  */
 public class DataTree {
     private String textData;
-    private static final String REGEX_COMENTARIO = "(?<=\\[)(.*?)(?=\\])";
     private TreeImp tree;
 
     public DataTree() {
@@ -31,7 +30,7 @@ public class DataTree {
         String[] linhasSplit = this.textData.split("\n");
         String[] palavrasComentarios;
         for (int i = 0; i < linhasSplit.length; i++) {
-            Matcher matcher = Pattern.compile(REGEX_COMENTARIO).matcher(linhasSplit[i]);
+            Matcher matcher = Pattern.compile(DataBaseValuesConvert.REGEX_COMENTARIO).matcher(linhasSplit[i]);
             if (matcher.find()) {
                 palavrasComentarios = matcher.group(0).split(" ");
                 TreeImp.Node node = tree.getRoot();
@@ -56,7 +55,7 @@ public class DataTree {
             index = node.procuraLetraChildren(String.valueOf(letra));
             node = (TreeImp.Node) node.getChildren().get(index);
         }
-        int idAvaliacao = node.getIndexComentario();
+        Integer idAvaliacao = (Integer) node.getLinhas().get(0);
         if (idAvaliacao >= 0) {
             AvaliacoesDAO dao = new AvaliacoesDAO();
             avaliacao = dao.pegarAvaliacaoBanco(context, idAvaliacao);
@@ -76,6 +75,10 @@ public class DataTree {
         int index = node.procuraLetraChildren(letra);
         if (index < 0) {
             index = node.add(letra, indexComentario);
+        } else {
+            if (node.getData().equals(letra)) {
+                node.addLinha(indexComentario);
+            }
         }
         return (TreeImp.Node) node.getChildren().get(index);
     }

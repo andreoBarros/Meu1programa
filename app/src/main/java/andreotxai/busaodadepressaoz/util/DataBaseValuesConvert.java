@@ -14,6 +14,7 @@ import andreotxai.busaodadepressaoz.model.Empresa;
  */
 final public class DataBaseValuesConvert {
     public static DataTree dataTree;
+    public static final String REGEX_COMENTARIO = "(?<=\\[)(.*?)(?=\\])";
 
     public static final String[] arraySpinnerEmpresa = new String[] {
             "<none>","Carris", "Conorte", "STS", "Unibus"

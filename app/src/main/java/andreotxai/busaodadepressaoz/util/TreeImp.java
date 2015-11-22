@@ -21,13 +21,14 @@ public class TreeImp {
 
     public static class Node<String> {
         private String data;
-        private int indexComentario;
+        private ArrayList<Integer> linhas;
         private Node<String> parent;
         private ArrayList<Node<String>> children;
 
         public Node(String data, int indexComentario) {
             this.data = data;
-            this.indexComentario = indexComentario;
+            linhas = new ArrayList<Integer>();
+            linhas.add(indexComentario);
             this.children = new ArrayList<Node<String>>();
         }
 
@@ -39,6 +40,10 @@ public class TreeImp {
             Node<String> node = new Node<String>(data,indexComentario);
             this.children.add(node);
             return this.children.indexOf(node);
+        }
+
+        public void addLinha(Integer linha) {
+            this.linhas.add(linha);
         }
 
         public int procuraLetraChildren(String letra) {
@@ -58,8 +63,8 @@ public class TreeImp {
             return this.data;
         }
 
-        public int getIndexComentario() {
-            return  this.indexComentario;
+        public ArrayList<Integer> getLinhas() {
+            return this.linhas;
         }
 
         public List<Node<String>> getChildren() {
