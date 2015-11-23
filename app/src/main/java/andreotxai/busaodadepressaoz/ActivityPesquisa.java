@@ -70,7 +70,7 @@ public class ActivityPesquisa extends AppCompatActivity {
                 String stringPesquisar = textPesquisar.getText().toString();
                 try {
                     String atributosAvaliacao = DataBaseValuesConvert.dataTree.pesquisaPorPalavra(ActivityPesquisa.this, stringPesquisar);
-                    Toast.makeText(ActivityPesquisa.this, atributosAvaliacao, Toast.LENGTH_LONG).show();
+                    // Toast.makeText(ActivityPesquisa.this, atributosAvaliacao, Toast.LENGTH_LONG).show();
                     splitAvalicao(atributosAvaliacao);
                 } catch (IOException e) {
                     e.printStackTrace();

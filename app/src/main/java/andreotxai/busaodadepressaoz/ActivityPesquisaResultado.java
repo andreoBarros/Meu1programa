@@ -1,5 +1,6 @@
 package andreotxai.busaodadepressaoz;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,14 +22,6 @@ import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
 
 public class ActivityPesquisaResultado extends AppCompatActivity {
 
-
-    private RatingBar nota;
-    private TextView textComentario;
-    private TextView textHora;
-    private TextView textLinha;
-    private TextView textDia;
-    private TextView textEmpresa;
-
     //Fiz um teste pra ver o que acontece com um texto grande
     private String stringComentario = "";
     private String stringLinha = "";
@@ -36,6 +29,7 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
     private String stringEmpresa = "";
     private String stringHora = "";
     private float valorNota = 0;
+
     private ArrayList<String> avaliacoes;
     private ArrayList<String> comentarios;
     int i;
@@ -135,7 +129,12 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         textLinha.setId(3 + i);
         ll.addView(textLinha);
 
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                (int) LinearLayout.LayoutParams.WRAP_CONTENT,
+                (int) LinearLayout.LayoutParams.WRAP_CONTENT);
+
         RatingBar nota = new RatingBar(this);
+        nota.setLayoutParams(params);
         nota.setNumStars(5);
         nota.setRating(valorNota);
         nota.setId(4 + i);
