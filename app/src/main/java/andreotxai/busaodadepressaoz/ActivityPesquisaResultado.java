@@ -1,5 +1,7 @@
 package andreotxai.busaodadepressaoz;
 
+import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,8 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
@@ -33,6 +38,7 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
     private float valorNota = 0;
     private ArrayList<String> avaliacoes;
     private ArrayList<String> comentarios;
+    int i;
 
 
     @Override
@@ -44,16 +50,31 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
 
         this.avaliacoes = getIntent().getExtras().getStringArrayList("avaliacoes");
         this.comentarios = getIntent().getExtras().getStringArrayList("comentarios");
-        funcaoTeste();
-        defineAsStrings();
+
+
+        Bundle gotBasket = getIntent().getExtras();
+
+        //CRIA O SCROLL VIEW COM UM LINEAR LAYOUT FIXO
+        ScrollView sv = new ScrollView(this);
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        sv.addView(ll);
+        funcaoTeste(ll);
+
+        //END
+
+
+
+        this.setContentView(sv);
 
     }
 
-    private void funcaoTeste() {
-        //for (int i = 0; i < this.avaliacoes.size() ; i++) {
-            preencheStrings(this.avaliacoes.get(0));
-            stringComentario = this.comentarios.get(0);
-        //}
+    private void funcaoTeste(LinearLayout ll) {
+        for (int i = 0; i < this.avaliacoes.size() ; i++) {
+            preencheStrings(this.avaliacoes.get(i));
+            stringComentario = this.comentarios.get(i);
+            comentario(stringComentario, stringLinha, stringDia, stringEmpresa, stringHora, valorNota, ll, i);
+        }
     }
 
     private void preencheStrings(String avaliacao) {
@@ -78,19 +99,56 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         this.stringDia = auxiliar[4];
     }
 
-    public void defineAsStrings(){
-        RatingBar nota = (RatingBar) findViewById(R.id.barraNota);
-        TextView textLinha = (TextView) findViewById(R.id.tituloLinha);
-        TextView textDia = (TextView) findViewById(R.id.tituloDia);
-        TextView textEmpresa = (TextView) findViewById(R.id.tituloEmpresa);
-        TextView textHora = (TextView) findViewById(R.id.tituloHora);
-        TextView textComentario = (TextView) findViewById(R.id.textComentario);
-        textLinha.setText(stringLinha);
-        textDia.setText(stringDia);
-        textEmpresa.setText(stringEmpresa);
-        textHora.setText(stringHora);
-        textComentario.setText(stringComentario);
-        nota.setRating(valorNota);
-    }
 
+
+    public void comentario(String Comentario, String Linha, String Dia, String Empresa, String Hora, float valorNota, LinearLayout ll, int i) {
+
+        TextView textHora = new TextView(this);
+        textHora.setText("Horario: " + Hora);
+        textHora.setTextSize(17);
+        textHora.setWidth(172);
+        textHora.setTypeface(null, Typeface.BOLD);
+        textHora.setId(i);
+        ll.addView(textHora);
+
+        TextView textDia = new TextView(this);
+        textDia.setTextSize(17);
+        textDia.setWidth(172);
+        textDia.setTypeface(null, Typeface.BOLD);
+        textDia.setText("Dia: " + Dia);
+        textDia.setId(1 + i);
+        ll.addView(textDia);
+
+        TextView textEmpresa = new TextView(this);
+        textEmpresa.setTextSize(15);
+        textEmpresa.setWidth(172);
+        textEmpresa.setTypeface(null, Typeface.BOLD);
+        textEmpresa.setText("Empresa: " + Empresa);
+        textEmpresa.setId(2 + i);
+        ll.addView(textEmpresa);
+
+        TextView textLinha = new TextView(this);
+        textLinha.setTextSize(14);
+        textLinha.setWidth(172);
+        textLinha.setTypeface(null, Typeface.ITALIC);
+        textLinha.setText("Linha: " + Linha);
+        textLinha.setId(3 + i);
+        ll.addView(textLinha);
+
+        RatingBar nota = new RatingBar(this);
+        nota.setNumStars(5);
+        nota.setRating(valorNota);
+        nota.setId(4 + i);
+        nota.setClickable(false);
+        nota.setIsIndicator(true);
+        ll.addView(nota);
+
+        TextView textComentario = new TextView(this);
+        textComentario.setText(Comentario);
+        textComentario.setMaxLines(7);
+        textComentario.setHeight(144);
+        textComentario.setId(5 + i);
+        ll.addView(textComentario);
+
+    }
 }

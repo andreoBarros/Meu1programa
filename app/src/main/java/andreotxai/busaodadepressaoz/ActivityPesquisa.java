@@ -96,8 +96,6 @@ public class ActivityPesquisa extends AppCompatActivity {
             comentarios.add(comentario);
         }
         Intent it = new Intent(ActivityPesquisa.this, ActivityPesquisaResultado.class);
-        //         Bundle basket = new Bundle();
-        //         basket.putString("txtPesquisar", stringPesquisar);
         it.putStringArrayListExtra("avaliacoes", avaliacoesAtributos);
         it.putStringArrayListExtra("comentarios", comentarios);
         startActivity(it);
