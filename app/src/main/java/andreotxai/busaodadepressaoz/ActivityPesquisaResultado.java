@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
+
 public class ActivityPesquisaResultado extends AppCompatActivity {
 
 
@@ -23,14 +25,15 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
     private TextView textEmpresa;
 
     //Fiz um teste pra ver o que acontece com um texto grande
-    private final String stringComentario = "Merda de onibus lotado, a capacidade seria 45 pessoas sentadas, e 44 em pé, mas tinham pelo menos 105 pessoas em pé. Algumas ficavam para fora das janelas, enquanto outras coladas na porta. O onibus era velho e fazia muito barulho. A cobradora era mal educada, já o motorista não sabia frear.";
-    private final String stringLinha = "Velho - Reaproveitado/Superfaturada";
-    private final String stringDia = "14/05/98";
-    private final String stringEmpresa = "Superfaturada";
-    private final String stringHora = "07:00";
-    private float valorNota = 2;
+    private String stringComentario = "";
+    private String stringLinha = "";
+    private String stringDia = "";
+    private String stringEmpresa = "";
+    private String stringHora = "";
+    private float valorNota = 0;
     private ArrayList<String> avaliacoes;
     private ArrayList<String> comentarios;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,40 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
 
         this.avaliacoes = getIntent().getExtras().getStringArrayList("avaliacoes");
         this.comentarios = getIntent().getExtras().getStringArrayList("comentarios");
-
+        funcaoTeste();
         defineAsStrings();
+
     }
+
+    private void funcaoTeste() {
+        //for (int i = 0; i < this.avaliacoes.size() ; i++) {
+            preencheStrings(this.avaliacoes.get(0));
+            stringComentario = this.comentarios.get(0);
+        //}
+    }
+
+    private void preencheStrings(String avaliacao) {
+        String[] auxiliar = avaliacao.split(" ");
+        this.stringEmpresa = DataBaseValuesConvert.arraySpinnerEmpresa[Integer.parseInt(auxiliar[0])];
+        this.valorNota = Float.parseFloat(auxiliar[1]);
+        switch(this.stringEmpresa) {
+            case "Carris":
+                this.stringLinha = DataBaseValuesConvert.arraySpinner2Carris[Integer.parseInt(auxiliar[2])];
+                break;
+            case "Conorte":
+                this.stringLinha = DataBaseValuesConvert.arraySpinner2Conorte[Integer.parseInt(auxiliar[2])];
+                break;
+            case "STS":
+                this.stringLinha = DataBaseValuesConvert.arraySpinner2Sts[Integer.parseInt(auxiliar[2])];
+                break;
+            case "Unibus":
+                this.stringLinha = DataBaseValuesConvert.arraySpinner2Unibus[Integer.parseInt(auxiliar[2])];
+                break;
+        }
+        this.stringHora = DataBaseValuesConvert.arraySpinnerHorario[Integer.parseInt(auxiliar[3])];
+        this.stringDia = auxiliar[4];
+    }
+
     public void defineAsStrings(){
         RatingBar nota = (RatingBar) findViewById(R.id.barraNota);
         TextView textLinha = (TextView) findViewById(R.id.tituloLinha);
@@ -55,7 +89,7 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         textDia.setText(stringDia);
         textEmpresa.setText(stringEmpresa);
         textHora.setText(stringHora);
-        textComentario.setText("teste");
+        textComentario.setText(stringComentario);
         nota.setRating(valorNota);
     }
 

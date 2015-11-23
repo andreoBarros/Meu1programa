@@ -92,7 +92,7 @@ public class ActivityPesquisa extends AppCompatActivity {
             if (matcher.find()) {
                 comentario = matcher.group(0);
             }
-            avaliacoesAtributos.add(avaliacaoSplit[i].replace("<[" + comentario + "]>", ""));
+            avaliacoesAtributos.add(avaliacaoSplit[i].replace("<[" + comentario + "]> ", ""));
             comentarios.add(comentario);
         }
         Intent it = new Intent(ActivityPesquisa.this, ActivityPesquisaResultado.class);
