@@ -1,6 +1,7 @@
 package andreotxai.busaodadepressaoz;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +22,7 @@ import andreotxai.busaodadepressaoz.model.Linha;
 import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
 import andreotxai.busaodadepressaoz.util.DataTree;
 
-public class ActivityAvaliacao extends AppCompatActivity {
+public class ActivityAvaliacao extends ActionBarActivity {
 
     private AppCompatButton btnEnviar;
     private Button btnTeste;
@@ -41,7 +42,6 @@ public class ActivityAvaliacao extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //SETA DE VOLTAR
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //VALORES DA ACTIVITY ANTERIOR
         stringLinha = getIntent().getExtras().getString("finalLinha","defaultKey");
         stringEmpresa = getIntent().getExtras().getString("finalEmpresa","defaultKey");

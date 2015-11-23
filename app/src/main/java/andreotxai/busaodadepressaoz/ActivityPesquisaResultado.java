@@ -22,6 +22,14 @@ import andreotxai.busaodadepressaoz.util.DataBaseValuesConvert;
 
 public class ActivityPesquisaResultado extends AppCompatActivity {
 
+
+    private RatingBar nota;
+    private TextView textComentario;
+    private TextView textHora;
+    private TextView textLinha;
+    private TextView textDia;
+    private TextView textEmpresa;
+
     //Fiz um teste pra ver o que acontece com um texto grande
     private String stringComentario = "";
     private String stringLinha = "";
