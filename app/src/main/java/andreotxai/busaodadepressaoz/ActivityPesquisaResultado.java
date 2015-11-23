@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class ActivityPesquisaResultado extends AppCompatActivity {
 
 
@@ -27,7 +29,8 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
     private final String stringEmpresa = "Superfaturada";
     private final String stringHora = "07:00";
     private float valorNota = 2;
-    private String data = "";
+    private ArrayList<String> avaliacoes;
+    private ArrayList<String> comentarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,10 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        data = getIntent().getExtras().getString("stringPesquisar","defaultKey");
+        this.avaliacoes = getIntent().getExtras().getStringArrayList("avaliacoes");
+        this.comentarios = getIntent().getExtras().getStringArrayList("comentarios");
 
         defineAsStrings();
-
-
     }
     public void defineAsStrings(){
         RatingBar nota = (RatingBar) findViewById(R.id.barraNota);
@@ -53,7 +55,7 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         textDia.setText(stringDia);
         textEmpresa.setText(stringEmpresa);
         textHora.setText(stringHora);
-        textComentario.setText(data);
+        textComentario.setText("teste");
         nota.setRating(valorNota);
     }
 
