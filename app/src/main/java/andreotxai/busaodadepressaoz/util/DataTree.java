@@ -55,10 +55,10 @@ public class DataTree {
             index = node.procuraLetraChildren(String.valueOf(letra));
             node = (TreeImp.Node) node.getChildren().get(index);
         }
-        Integer idAvaliacao = (Integer) node.getLinhas().get(0);
-        if (idAvaliacao >= 0) {
+        ArrayList<Integer> linhas = node.getLinhas();
+        if (linhas.size() > 0) {
             AvaliacoesDAO dao = new AvaliacoesDAO();
-            avaliacao = dao.pegarAvaliacaoBanco(context, idAvaliacao);
+            avaliacao = dao.pegarAvaliacaoBanco(context, linhas);
         }
         return avaliacao;
     }
@@ -73,11 +73,11 @@ public class DataTree {
 
     private TreeImp.Node insereLetra(String letra, int indexComentario, TreeImp.Node node) {
         int index = node.procuraLetraChildren(letra);
-        if (index < 0) {
+        if (index < 0 && !node.getData().equals(letra)) {
             index = node.add(letra, indexComentario);
         } else {
-            if (node.getData().equals(letra)) {
-                node.addLinha(indexComentario);
+            if (indexComentario >= 0) {
+                ((TreeImp.Node) node.getChildren().get(index)).addLinha(indexComentario);
             }
         }
         return (TreeImp.Node) node.getChildren().get(index);

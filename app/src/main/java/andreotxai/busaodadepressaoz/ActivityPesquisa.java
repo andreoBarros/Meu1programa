@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,25 +70,37 @@ public class ActivityPesquisa extends AppCompatActivity {
                 String stringPesquisar = textPesquisar.getText().toString();
                 try {
                     String atributosAvaliacao = DataBaseValuesConvert.dataTree.pesquisaPorPalavra(ActivityPesquisa.this, stringPesquisar);
-                    String comentario = "";
-                            Matcher matcher = Pattern.compile(DataBaseValuesConvert.REGEX_COMENTARIO).matcher(atributosAvaliacao);
-                    if (matcher.find()) {
-                        comentario = matcher.group(0);
-                    }
-                    atributosAvaliacao = atributosAvaliacao.replace("<[" + comentario + "]>", "");
-                    Toast.makeText(ActivityPesquisa.this, atributosAvaliacao + " -> " + comentario, Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityPesquisa.this, atributosAvaliacao, Toast.LENGTH_LONG).show();
+                    splitAvalicao(atributosAvaliacao);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(ActivityPesquisa.this, "problema ao ler avaliacao!", Toast.LENGTH_LONG).show();
                 }
-                Intent it = new Intent(ActivityPesquisa.this, ActivityPesquisaResultado.class);
-       //         Bundle basket = new Bundle();
-       //         basket.putString("txtPesquisar", stringPesquisar);
-                it.putExtra("stringPesquisar", stringPesquisar);
-                startActivity(it);
+
             }
 
         };
+    }
+
+    private void splitAvalicao(String avaliacoes) {
+        ArrayList<String> avaliacoesAtributos = new ArrayList<String>();
+        ArrayList<String> comentarios = new ArrayList<String>();
+        String comentario = "";
+        String[] avaliacaoSplit = avaliacoes.split("\n");
+        for (int i = 0; i < avaliacaoSplit.length; i++) {
+            Matcher matcher = Pattern.compile(DataBaseValuesConvert.REGEX_COMENTARIO).matcher(avaliacaoSplit[i]);
+            if (matcher.find()) {
+                comentario = matcher.group(0);
+            }
+            avaliacoesAtributos.add(avaliacaoSplit[i].replace("<[" + comentario + "]>", ""));
+            comentarios.add(comentario);
+        }
+        Intent it = new Intent(ActivityPesquisa.this, ActivityPesquisaResultado.class);
+        //         Bundle basket = new Bundle();
+        //         basket.putString("txtPesquisar", stringPesquisar);
+        it.putStringArrayListExtra("avaliacoes", avaliacoesAtributos);
+        it.putStringArrayListExtra("comentarios", comentarios);
+        startActivity(it);
     }
     //END
 

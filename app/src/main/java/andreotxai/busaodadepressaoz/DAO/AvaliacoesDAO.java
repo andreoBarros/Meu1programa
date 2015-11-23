@@ -3,6 +3,8 @@ package andreotxai.busaodadepressaoz.DAO;
 import android.content.Context;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import andreotxai.busaodadepressaoz.DAO.file.DataBaseMainFactory;
 import andreotxai.busaodadepressaoz.model.Avalicoes;
@@ -48,9 +50,12 @@ public class AvaliacoesDAO implements IModelDAO {
         return dbConnection.readData();
     }
 
-    public String pegarAvaliacaoBanco(Context context, int index) throws IOException {
+    public String pegarAvaliacaoBanco(Context context, ArrayList<Integer> linhas) throws IOException {
         DataBaseMainFactory dbConnection = new DataBaseMainFactory(context);
-        String linhaAvaliacao = dbConnection.readData().split("\n")[index];
+        String linhaAvaliacao = "";
+        for (int i = 0; i < linhas.size(); i++) {
+            linhaAvaliacao += dbConnection.readData().split("\n")[linhas.get(i)] + "\n";
+        }
         return linhaAvaliacao;
     }
 
