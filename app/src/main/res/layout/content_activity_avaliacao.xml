@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/nota"
-                    android:rating="1"
+                    android:rating="4"
                     android:clickable="true"
                     android:layout_above="@+id/caixaTexto"
                     android:layout_centerHorizontal="true" />

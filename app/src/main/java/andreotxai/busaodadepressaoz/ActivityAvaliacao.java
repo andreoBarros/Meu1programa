@@ -52,6 +52,7 @@ public class ActivityAvaliacao extends ActionBarActivity {
         this.nota = (RatingBar) findViewById(R.id.nota);
         this.text = (EditText) findViewById(R.id.caixaTexto);
         this.btnTeste = (Button) findViewById(R.id.buttonTeste);
+        this.btnTeste.setVisibility(View.INVISIBLE);
 
         defineAsStrings();
 
