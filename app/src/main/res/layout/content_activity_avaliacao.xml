@@ -54,7 +54,9 @@
                     android:rating="4"
                     android:clickable="true"
                     android:layout_above="@+id/caixaTexto"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    style = "@style/betterRatingBar"
+                    />
 
                 <EditText
                 android:layout_width="wrap_content"
