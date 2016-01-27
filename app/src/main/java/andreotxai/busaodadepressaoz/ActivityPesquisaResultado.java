@@ -2,8 +2,13 @@ package andreotxai.busaodadepressaoz;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +20,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
 
@@ -37,6 +44,8 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
     private String stringEmpresa = "";
     private String stringHora = "";
     private float valorNota = 0;
+
+
 
     private ArrayList<String> avaliacoes;
     private ArrayList<String> comentarios;
@@ -142,6 +151,9 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
                 (int) LinearLayout.LayoutParams.WRAP_CONTENT);
 
         RatingBar nota = new RatingBar(this);
+        Drawable drawable = nota.getProgressDrawable();
+        drawable.setColorFilter(Color.parseColor("#FFD800"), PorterDuff.Mode.MULTIPLY);
+
         nota.setLayoutParams(params);
         nota.setNumStars(5);
         nota.setRating(valorNota);
@@ -158,4 +170,8 @@ public class ActivityPesquisaResultado extends AppCompatActivity {
         ll.addView(textComentario);
 
     }
+
+
 }
+
+

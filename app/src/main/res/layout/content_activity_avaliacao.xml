@@ -8,7 +8,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_activity_avaliacao"
-    tools:context="andreotxai.busaodadepressaoz.ActivityAvaliacao">
+    tools:context="andreotxai.busaodadepressaoz.ActivityAvaliacao"
+    >
 
     <RelativeLayout
         android:name="andreotxai.busaodadepressaoz"
@@ -84,14 +85,20 @@
                     android:layout_marginBottom="71dp" />
 
                 <android.support.v7.widget.AppCompatButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="190px"
+                    android:layout_height="91px"
                     android:text="Enviar"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
                     android:id="@+id/btnEnviar"
                     android:layout_gravity="right"
                     android:layout_alignTop="@+id/buttonTeste"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:background = "@drawable/buttonfull"
+                    />
+
 
                 <TextView
                     android:id="@+id/avalDia"

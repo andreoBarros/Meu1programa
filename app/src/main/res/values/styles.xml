@@ -1,13 +1,18 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+//PLANO DE FUNDO
+    <style name="MyTheme" parent="android:Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@drawable/background</item>
+    </style>
+//END
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -17,6 +22,21 @@
         <item name="android:progressDrawable">@drawable/ratingbarfull</item>
         <item name="android:minHeight">48dip</item>
         <item name="android:maxHeight">48dip</item>
+    </style>
+//END
+//BOTÃO PERSONALIZADO (somente texto)
+    <style name="betterButton" parent="@android:style/Widget.Button">
+            <item name="android:layout_width" >fill_parent</item>
+            <item name="android:layout_height" >wrap_content</item>
+            <item name="android:textColor" >#ffffff</item>
+            <item name="android:gravity" >center</item>
+            <item name="android:layout_margin" >3dp</item>
+            <item name="android:textSize" >30dp</item>
+            <item name="android:textStyle" >bold</item>
+            <item name="android:shadowColor" >#000000</item>
+            <item name="android:shadowDx" >1</item>
+            <item name="android:shadowDy" >1</item>
+            <item name="android:shadowRadius" >2</item>
     </style>
 //END
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
