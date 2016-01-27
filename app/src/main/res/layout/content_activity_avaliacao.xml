@@ -8,8 +8,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_activity_avaliacao"
-    tools:context="andreotxai.busaodadepressaoz.ActivityAvaliacao"
-    >
+    tools:context="andreotxai.busaodadepressaoz.ActivityAvaliacao">
 
     <RelativeLayout
         android:name="andreotxai.busaodadepressaoz"
@@ -18,7 +17,8 @@
         android:background="@android:color/white"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        >
 
 
         <!-- android:maxlenght 140 CARACTERES POIS TWIITER É 140 -->
@@ -46,7 +46,8 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:weightSum="1"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                >
 
                 <RatingBar
                     android:layout_width="wrap_content"
